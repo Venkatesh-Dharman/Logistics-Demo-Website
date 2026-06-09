@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects – Logistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════ TOKENS ═══════════════════════ */
+:root {
+  --primary:  #00529B;
+  --primary2: #003d75;
+  --accent:   #FFCC00;
+  --acc2:     #e6b800;
+  --light:    #f0f5fb;
+  --white:    #ffffff;
+  --grey:     #6b7280;
+  --text:     #1e293b;
+  --border:   #cfdce8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+
+/* ═══ TOP BAR ═══ */
+.topbar{background:var(--primary);text-align:center;padding:6px 5%;font-size:.75rem;color:rgba(255,255,255,.85);letter-spacing:.3px}
+.topbar a{color:var(--accent);font-weight:600;text-decoration:none;margin-left:6px}
+.topbar a:hover{text-decoration:underline}
+
+/* ═══ NAV ═══ */
+nav{position:sticky;top:0;z-index:200;background:var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:62px;box-shadow:0 2px 16px rgba(0,82,155,.3)}
+.logo{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.3px;flex-shrink:0}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a{display:flex;align-items:center;gap:3px;color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;font-weight:500;padding:.45rem .75rem;border-radius:5px;transition:color .2s,background .2s;white-space:nowrap}
+.nav-links>li>a:hover,.nav-links>li.active>a{color:var(--white);background:rgba(255,255,255,.12)}
+.nav-arrow{font-size:.55rem;opacity:.7;transition:transform .2s}
+.nav-links>li:hover .nav-arrow{transform:rotate(180deg)}
+.dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--white);border-radius:10px;min-width:200px;box-shadow:0 10px 36px rgba(0,82,155,.18);border:1px solid var(--border);overflow:hidden;animation:dropIn .2s ease;z-index:300}
+@keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-links>li:hover .dropdown{display:block}
+.dropdown a{display:block;padding:9px 15px;font-size:.8rem;color:var(--primary);text-decoration:none;border-bottom:1px solid var(--border);transition:background .15s,color .15s}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:var(--light);color:var(--primary);font-weight:600}
+.nav-cta{background:var(--accent);color:var(--primary);padding:.42rem 1.1rem;border-radius:6px;font-size:.8rem;font-weight:700;text-decoration:none;font-family:'Poppins',sans-serif;transition:background .2s,transform .15s;flex-shrink:0}
+.nav-cta:hover{background:var(--acc2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;height:320px;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,41,77,.93) 0%,rgba(0,41,77,.72) 55%,rgba(0,41,77,.3) 100%);z-index:1}
+.hero-body{position:relative;z-index:2;padding:0 5%;max-width:1160px;margin:0 auto;height:100%;display:flex;flex-direction:column;justify-content:center}
+.breadcrumb{font-size:.73rem;color:rgba(255,255,255,.52);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:rgba(255,255,255,.52);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:rgba(255,255,255,.3)}
+.hero-body h1{font-family:'Poppins',sans-serif;font-size:clamp(1.75rem,3.5vw,2.65rem);font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:-.5px;line-height:1.1;animation:fadeUp .65s ease both}
+.hero-body h1 span{color:var(--accent)}
+.hero-body p{color:rgba(255,255,255,.7);font-size:.86rem;margin-top:10px;max-width:520px;line-height:1.72;animation:fadeUp .65s .12s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ═══ STATS STRIP ═══ */
+.stats-strip{background:var(--accent);display:flex;justify-content:center;flex-wrap:wrap}
+.sstat{padding:15px 40px;text-align:center;border-right:1px solid rgba(0,82,155,.18);flex:1;min-width:120px}
+.sstat:last-child{border-right:none}
+.sstat-num{font-family:'Poppins',sans-serif;font-size:1.55rem;font-weight:800;color:var(--primary);line-height:1}
+.sstat-lbl{font-size:.66rem;color:rgba(0,82,155,.8);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+/* ═══ COMMON ═══ */
+.section-tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px;font-family:'Poppins',sans-serif}
+.section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.25rem,2.1vw,1.8rem);font-weight:700;color:var(--primary);margin-bottom:13px;line-height:1.2}
+.section-title span{color:var(--accent)}
+.divider{width:38px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:18px}
+.divider-center{width:38px;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 16px}
+
+/* ═══ FILTER BAR ═══ */
+.filter-bar{background:var(--light);border-bottom:1px solid var(--border);padding:16px 5%;position:sticky;top:62px;z-index:100}
+.filter-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.filter-label{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-right:4px;white-space:nowrap}
+.filter-btn{background:var(--white);border:1.5px solid var(--border);color:var(--grey);font-family:'Poppins',sans-serif;font-size:.74rem;font-weight:600;padding:6px 16px;border-radius:50px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.filter-btn:hover,.filter-btn.active{background:var(--primary);border-color:var(--primary);color:var(--white)}
+.filter-btn.all.active{background:var(--accent);border-color:var(--accent);color:var(--primary)}
+.results-count{margin-left:auto;font-size:.72rem;color:var(--grey);font-weight:500}
+.results-count span{color:var(--primary);font-weight:700}
+
+/* ═══ PROJECTS GRID ═══ */
+.projects-section{max-width:1160px;margin:0 auto;padding:56px 5% 72px}
+.projects-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+.projects-header-left .section-title{margin-bottom:6px}
+.projects-header-left p{font-size:.84rem;color:var(--grey);line-height:1.6;max-width:420px}
+.view-toggle{display:flex;gap:6px}
+.vt-btn{width:34px;height:34px;border:1.5px solid var(--border);border-radius:7px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.9rem}
+.vt-btn.active,.vt-btn:hover{background:var(--primary);border-color:var(--primary);color:var(--white)}
+
+/* Grid view */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;transition:all .3s}
+.proj-grid.list-view{grid-template-columns:1fr}
+
+/* Project card */
+.proj-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s;cursor:pointer;position:relative}
+.proj-card:hover{box-shadow:0 16px 44px rgba(0,82,155,.13);transform:translateY(-5px)}
+.proj-card-img{position:relative;height:210px;overflow:hidden;flex-shrink:0}
+.proj-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.proj-card:hover .proj-card-img img{transform:scale(1.07)}
+.proj-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(0,41,77,.55) 100%)}
+.proj-cat-badge{position:absolute;top:13px;left:13px;background:var(--accent);color:var(--primary);font-family:'Poppins',sans-serif;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.4px;z-index:1}
+.proj-num{position:absolute;bottom:13px;right:14px;font-family:'Poppins',sans-serif;font-size:2.2rem;font-weight:800;color:rgba(255,255,255,.15);line-height:1;z-index:1;user-select:none}
+.proj-card-body{padding:20px 20px 14px;flex:1;display:flex;flex-direction:column}
+.proj-card-body h3{font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:700;color:var(--primary);margin-bottom:8px;line-height:1.3}
+.proj-card-body p{font-size:.8rem;color:var(--grey);line-height:1.68;flex:1}
+.proj-card-meta{display:flex;align-items:center;justify-content:space-between;margin:14px 20px 18px;padding-top:12px;border-top:1px solid var(--border)}
+.proj-meta-tags{display:flex;gap:5px;flex-wrap:wrap}
+.proj-tag{font-size:.64rem;color:var(--primary);background:var(--light);border:1px solid var(--border);border-radius:50px;padding:2px 8px;font-weight:500}
+.proj-link{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;gap:4px;transition:gap .2s}
+.proj-card:hover .proj-link{gap:8px}
+
+/* List view overrides */
+.proj-grid.list-view .proj-card{flex-direction:row;height:160px}
+.proj-grid.list-view .proj-card-img{width:240px;height:100%;border-radius:0}
+.proj-grid.list-view .proj-card-body{padding:20px 22px 14px}
+.proj-grid.list-view .proj-card-body h3{font-size:.9rem}
+.proj-grid.list-view .proj-num{display:none}
+.proj-grid.list-view .proj-card-meta{margin:10px 22px 14px}
+
+/* Overlay modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,41,77,.65);backdrop-filter:blur(6px);z-index:500;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:20px;max-width:820px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--light);border:1px solid var(--border);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--primary);z-index:1;transition:background .2s}
+.modal-close:hover{background:var(--primary);color:var(--white)}
+.modal-hero{width:100%;height:300px;object-fit:cover;border-radius:20px 20px 0 0;display:block}
+.modal-body{padding:28px 32px 32px}
+.modal-cat{font-family:'Poppins',sans-serif;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--primary);background:var(--accent);padding:4px 12px;border-radius:50px;display:inline-block;margin-bottom:12px}
+.modal-body h2{font-family:'Poppins',sans-serif;font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700;color:var(--primary);margin-bottom:12px;line-height:1.2}
+.modal-body p{font-size:.85rem;color:var(--grey);line-height:1.85;margin-bottom:12px}
+.modal-body p:last-of-type{margin-bottom:0}
+.modal-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.modal-gallery img{width:100%;height:100px;object-fit:cover;border-radius:9px;display:block;transition:transform .3s}
+.modal-gallery img:hover{transform:scale(1.04)}
+.modal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.modal-tag{font-size:.72rem;color:var(--primary);background:var(--light);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-weight:500}
+
+/* ═══ CTA SECTION ═══ */
+.cta-section{background:var(--primary);padding:56px 5%;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;right:-80px;top:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,204,0,.07)}
+.cta-section::after{content:'';position:absolute;left:-60px;bottom:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cta-inner{position:relative;z-index:1}
+.cta-section h2{font-family:'Poppins',sans-serif;font-size:clamp(1.2rem,2.3vw,1.75rem);font-weight:700;color:var(--white);margin-bottom:10px}
+.cta-section p{color:rgba(255,255,255,.72);font-size:.85rem;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-accent{background:var(--accent);color:var(--primary);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:background .2s,transform .2s}
+.btn-accent:hover{background:var(--acc2);transform:translateY(-2px)}
+.btn-outline-w{border:2px solid rgba(255,255,255,.5);color:var(--white);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:all .2s}
+.btn-outline-w:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--primary);color:rgba(255,255,255,.65);padding:50px 5% 24px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;max-width:1160px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand .flogo{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--white);text-decoration:none;display:block;margin-bottom:11px}
+.footer-brand .flogo span{color:var(--accent)}
+.footer-brand p{font-size:.77rem;line-height:1.75;max-width:240px}
+.footer-social{display:flex;gap:8px;margin-top:15px}
+.fsoc{width:31px;height:31px;border-radius:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.78rem;transition:background .2s;color:var(--white)}
+.fsoc:hover{background:var(--accent);color:var(--primary)}
+.fcol h4{font-family:'Poppins',sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--white);margin-bottom:13px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:.76rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--accent)}
+.fcol address{font-style:normal;font-size:.76rem;line-height:1.85}
+.footer-bottom{max-width:1160px;margin:18px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;flex-wrap:wrap;gap:10px}
+.footer-bottom a{color:rgba(255,255,255,.38);text-decoration:none}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ═══ FLOATING ═══ */
+.floating-actions{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:300}
+.fab{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transition:transform .2s}
+.fab:hover{transform:scale(1.12)}
+.fab-phone{background:var(--primary);color:var(--white)}
+.fab-mail{background:var(--accent);color:var(--primary)}
+.fab-wa{background:#25d366;color:var(--white)}
+
+/* ═══ MOBILE MENU ═══ */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:1000;background:var(--primary);padding:70px 5% 36px;flex-direction:column;gap:4px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mm-close{position:absolute;top:15px;right:18px;background:none;border:none;color:var(--white);font-size:1.45rem;cursor:pointer}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-family:'Poppins',sans-serif;font-size:.93rem;font-weight:600;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-menu a:hover{color:var(--accent)}
+.mm-sub{font-family:'Inter',sans-serif!important;font-size:.8rem!important;font-weight:400!important;padding-left:14px!important;color:rgba(255,255,255,.55)!important}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+.proj-card{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease,box-shadow .3s,border-color .2s}
+.proj-card.visible{opacity:1;transform:none}
+.proj-card.hidden{display:none}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1060px){.nav-links{display:none}.hamburger{display:flex}.proj-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}.proj-grid.list-view .proj-card{flex-direction:column;height:auto}.proj-grid.list-view .proj-card-img{width:100%;height:180px}.projects-header{flex-direction:column;align-items:flex-start}}
+@media(max-width:580px){.proj-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.stats-strip{flex-direction:column}.sstat{border-right:none;border-bottom:1px solid rgba(0,82,155,.15)}.modal-body{padding:20px 18px 24px}.modal-gallery{grid-template-columns:repeat(2,1fr)}.filter-bar{top:62px}.view-toggle{display:none}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Your Trusted Logistics Partner — Serving India &amp; the World Since 2026. <a href="contact.html">Get a Quote →</a></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo"> <span>Logistics</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li>
+      <a href="service.html">Services <span class="nav-arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="service.html#air">✈️ Air Freight</a>
+        <a href="service.html#sea">🚢 Sea Freight</a>
+        <a href="service.html#land">🚛 Land Freight</a>
+        <a href="service.html#ware">🏭 Warehousing</a>
+        <a href="service.html#gen">📦 General Freight</a>
+        <a href="service.html#haz">⚠️ Hazardous Cargo</a>
+      </div>
+    </li>
+    <li><a href="resource.html">Resources</a></li>
+    <li><a href="join-our-team.html">Join Our Team</a></li>
+    <li class="active"><a href="project.html">Projects</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu()">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="service.html">Services</a>
+  <a href="service.html#air" class="mm-sub">✈️ Air Freight</a>
+  <a href="service.html#sea" class="mm-sub">🚢 Sea Freight</a>
+  <a href="service.html#land" class="mm-sub">🚛 Land Freight</a>
+  <a href="service.html#ware" class="mm-sub">🏭 Warehousing</a>
+  <a href="service.html#gen" class="mm-sub">📦 General Freight</a>
+  <a href="service.html#haz" class="mm-sub">⚠️ Hazardous Cargo</a>
+  <a href="resource.html">Resources</a>
+  <a href="join-our-team.html">Join Our Team</a>
+  <a href="project.html">Projects</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img"
+       src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80&auto=format&fit=crop"
+       alt="Logistics projects operations"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span style="color:rgba(255,255,255,.78)">Projects</span>
+    </div>
+    <h1>Our <span>Projects</span></h1>
+    <p>Explore our completed logistics projects — from heavy equipment transport and yacht importation to hazardous cargo and warehouse operations.</p>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="sstat"><div class="sstat-num">10+</div><div class="sstat-lbl">Projects Completed</div></div>
+  <div class="sstat"><div class="sstat-num">6</div><div class="sstat-lbl">Service Categories</div></div>
+  <div class="sstat"><div class="sstat-num">1+</div><div class="sstat-lbl">Years of Operations</div></div>
+  <div class="sstat"><div class="sstat-num">Global</div><div class="sstat-lbl">Reach &amp; Network</div></div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn all active" onclick="filterProjects('all',this)">All Projects</button>
+    <button class="filter-btn" onclick="filterProjects('sea',this)">🚢 Sea Freight</button>
+    <button class="filter-btn" onclick="filterProjects('air',this)">✈️ Air Freight</button>
+    <button class="filter-btn" onclick="filterProjects('land',this)">🚛 Land / Vehicle</button>
+    <button class="filter-btn" onclick="filterProjects('warehouse',this)">🏭 Warehousing</button>
+    <button class="filter-btn" onclick="filterProjects('hazardous',this)">⚠️ Hazardous</button>
+    <button class="filter-btn" onclick="filterProjects('special',this)">📦 Special Cargo</button>
+    <span class="results-count">Showing <span id="countDisplay">10</span> of 10 projects</span>
+  </div>
+</div>
+
+<!-- PROJECTS SECTION -->
+<section class="projects-section">
+  <div class="projects-header fade-up">
+    <div class="projects-header-left">
+      <p class="section-tag">Our Work</p>
+      <h2 class="section-title">Completed <span>Projects</span></h2>
+      <div class="divider"></div>
+      <p>A showcase of real-world logistics challenges we have successfully handled for our clients.</p>
+    </div>
+    <div class="view-toggle">
+      <button class="vt-btn active" onclick="setView('grid',this)" title="Grid View">⊞</button>
+      <button class="vt-btn" onclick="setView('list',this)" title="List View">☰</button>
+    </div>
+  </div>
+
+  <div class="proj-grid" id="projGrid">
+
+    <!-- 1. Propeller -->
+    <div class="proj-card" data-cat="sea" onclick="openModal(0)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=700&q=80&auto=format&fit=crop" alt="Propeller shipping"/>
+        <span class="proj-cat-badge">Sea Freight</span>
+        <span class="proj-num">01</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Propeller</h3>
+        <p>Successful overseas shipment of a large industrial propeller requiring specialist containerisation and handling at port.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Oversize Cargo</span>
+          <span class="proj-tag">FCL</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 2. Office Relocation -->
+    <div class="proj-card" data-cat="land" onclick="openModal(1)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&auto=format&fit=crop" alt="Office relocation"/>
+        <span class="proj-cat-badge">Land Freight</span>
+        <span class="proj-num">02</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Office Relocation</h3>
+        <p>End-to-end office relocation project covering packing, transport, customs clearance, and re-installation at the destination.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Relocation</span>
+          <span class="proj-tag">Door-to-Door</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 3. Charging Stations -->
+    <div class="proj-card" data-cat="air" onclick="openModal(2)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=700&q=80&auto=format&fit=crop" alt="EV Charging Stations shipping"/>
+        <span class="proj-cat-badge">Air Freight</span>
+        <span class="proj-num">03</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Shipping &amp; Delivery of Charging Stations</h3>
+        <p>Time-critical air freight delivery of EV charging station units from manufacturer to installation sites across the country.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Air Freight</span>
+          <span class="proj-tag">Express</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 4. Importation of Yacht -->
+    <div class="proj-card" data-cat="special" onclick="openModal(3)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=700&q=80&auto=format&fit=crop" alt="Importation of Yacht"/>
+        <span class="proj-cat-badge">Special Cargo</span>
+        <span class="proj-num">04</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Importation of Yacht</h3>
+        <p>Complete importation of a private sailing yacht including crane operations, customs documentation, and safe berthing coordination.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Project Cargo</span>
+          <span class="proj-tag">Customs</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 5. Importation of Vans -->
+    <div class="proj-card" data-cat="land" onclick="openModal(4)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=700&q=80&auto=format&fit=crop" alt="Importation of Vans"/>
+        <span class="proj-cat-badge">Land / Vehicle</span>
+        <span class="proj-num">05</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Importation of Vans</h3>
+        <p>Bulk importation of commercial delivery vans through Roll-on Roll-off (RoRo) vessel with full customs and registration clearance.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">RoRo</span>
+          <span class="proj-tag">Bulk Import</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 6. Unstuffing Oversize Cargo -->
+    <div class="proj-card" data-cat="special" onclick="openModal(5)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700&q=80&auto=format&fit=crop" alt="Unstuffing oversize cargo"/>
+        <span class="proj-cat-badge">Special Cargo</span>
+        <span class="proj-num">06</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Unstuffing Oversize Cargo</h3>
+        <p>Safe unstuffing and extraction of heavy oversize industrial equipment from shipping containers at the port facility.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Heavy Lift</span>
+          <span class="proj-tag">Oversize</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 7. Hazardous Cargo -->
+    <div class="proj-card" data-cat="hazardous" onclick="openModal(6)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=700&q=80&auto=format&fit=crop" alt="Hazardous Cargo"/>
+        <span class="proj-cat-badge">Hazardous</span>
+        <span class="proj-num">07</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Hazardous Cargo</h3>
+        <p>IATA and IMDG compliant handling, packaging, documentation, and transportation of classified dangerous goods.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">DG Certified</span>
+          <span class="proj-tag">IATA / IMDG</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 8. Free Trade Zone Warehouse -->
+    <div class="proj-card" data-cat="warehouse" onclick="openModal(7)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=700&q=80&auto=format&fit=crop" alt="Free trade zone warehouse"/>
+        <span class="proj-cat-badge">Warehousing</span>
+        <span class="proj-num">08</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Free Trade Zone Warehouse</h3>
+        <p>Management and operations of a Free Trade Zone warehouse facility with inventory control and bonded storage services.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">FTZ</span>
+          <span class="proj-tag">Bonded Storage</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 9. Import of Bumboat -->
+    <div class="proj-card" data-cat="sea" onclick="openModal(8)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=700&q=80&auto=format&fit=crop" alt="Import of Bumboat"/>
+        <span class="proj-cat-badge">Sea Freight</span>
+        <span class="proj-num">09</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Import of Bumboat</h3>
+        <p>Complete import logistics for a traditional bumboat vessel including sea transportation, customs clearance, and port handling.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Project Cargo</span>
+          <span class="proj-tag">Sea Freight</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+    <!-- 10. Vehicle Container Stuffing -->
+    <div class="proj-card" data-cat="land" onclick="openModal(9)">
+      <div class="proj-card-img">
+        <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=700&q=80&auto=format&fit=crop" alt="Vehicle Container Stuffing"/>
+        <span class="proj-cat-badge">Land / Vehicle</span>
+        <span class="proj-num">10</span>
+      </div>
+      <div class="proj-card-body">
+        <h3>Vehicle Container Stuffing</h3>
+        <p>Professional stuffing of multiple vehicles into 40-foot containers for export, with custom bracing and securing arrangements.</p>
+      </div>
+      <div class="proj-card-meta">
+        <div class="proj-meta-tags">
+          <span class="proj-tag">Export</span>
+          <span class="proj-tag">Container Stuffing</span>
+        </div>
+        <span class="proj-link">View →</span>
+      </div>
+    </div>
+
+  </div><!-- /proj-grid -->
+</section>
+
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-hero" id="modalImg" src="" alt=""/>
+    <div class="modal-body">
+      <span class="modal-cat" id="modalCat"></span>
+      <h2 id="modalTitle"></h2>
+      <div id="modalDesc"></div>
+      <div class="modal-gallery" id="modalGallery"></div>
+      <div class="modal-tags" id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Have a Similar Project in Mind?</h2>
+    <p>Tell us about your cargo requirements and let our experts design the ideal logistics solution for you.</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn-accent">Get a Free Quote</a>
+      <a href="service.html" class="btn-outline-w">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand fcol">
+      <a href="index.html" class="flogo"> <span>Logistics</span></a>
+      <p>Your trusted freight and logistics partner across air, sea, and land. Moving your cargo reliably since 2026.</p>
+      <div class="footer-social">
+        <a href="#" class="fsoc" target="_blank">f</a>
+        <a href="#" class="fsoc" target="_blank">W</a>
+        <a href="mailto:info@mail.com" class="fsoc">✉</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="join-our-team.html">Join Our Team</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="service.html#air">Air Freight</a></li>
+        <li><a href="service.html#sea">Sea Freight</a></li>
+        <li><a href="service.html#land">Land Freight</a></li>
+        <li><a href="service.html#ware">Warehousing</a></li>
+        <li><a href="service.html#gen">General Freight</a></li>
+        <li><a href="service.html#haz">Hazardous Cargo</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact</h4>
+      <address>
+        Chennai, Tamil Nadu<br>
+        India<br><br>
+        <a href="tel:+91xxxxxxxxxxx">+91 XXXXX XXXXX</a><br>
+        <a href="tel:+91xxxxxxxxxxx">Fax: +91 XXXXX XXXXX</a><br>
+        <a href="mailto:info@mail.com">info@mail.com</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Logistics. All Rights Reserved.</span>
+    <span>
+      <a href="#">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+      <a href="#">Sitemap</a>
+    </span>
+  </div>
+</footer>
+
+<!-- FLOATING ACTIONS -->
+<div class="floating-actions">
+  <a href="tel:+91xxxxxxxxxxx" class="fab fab-phone" title="Call Us">📞</a>
+  <a href="mailto:info@mail.com" class="fab fab-mail" title="Email Us">✉️</a>
+  <a href="https://api.whatsapp.com/send?phone=91xxxxxxxxxxx" target="_blank" class="fab fab-wa" title="WhatsApp">💬</a>
+</div>
+
+<script>
+/* ── NAV ── */
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ── SCROLL ANIMATIONS ── */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('.fade-up, .proj-card').forEach(el=>observer.observe(el));
+
+/* ── VIEW TOGGLE ── */
+function setView(mode, btn){
+  const grid = document.getElementById('projGrid');
+  grid.classList.toggle('list-view', mode==='list');
+  document.querySelectorAll('.vt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── FILTER ── */
+function filterProjects(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.proj-card');
+  let count = 0;
+  cards.forEach(c=>{
+    const match = cat==='all' || c.dataset.cat===cat;
+    c.classList.toggle('hidden', !match);
+    if(match) count++;
+  });
+  document.getElementById('countDisplay').textContent = count;
+}
+
+/* ── MODAL DATA ── */
+const projects = [
+  {
+    title:'Propeller',
+    cat:'Sea Freight',
+    img:'https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>We successfully managed the overseas shipment of a large industrial propeller. This project required specialist containerisation planning, custom timber bracing to prevent movement, and coordination with port authorities for out-of-gauge handling approvals.</p><p>Our team handled all customs documentation, freight booking, and on-site supervision to ensure the propeller arrived safely at its destination without damage.</p>',
+    tags:['Oversize Cargo','FCL','Sea Freight','Port Handling','Custom Bracing'],
+    gallery:['https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1553413077-190dd305871c?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Office Relocation',
+    cat:'Land / Vehicle',
+    img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Provided a complete end-to-end office relocation service for a corporate client. Our scope included professional packing of all office equipment and furniture, secure road transportation, customs documentation, and full re-installation at the new premises.</p><p>The project was completed on schedule with zero damage to client assets, demonstrating our capability in time-sensitive corporate moves.</p>',
+    tags:['Relocation','Door-to-Door','Land Freight','Packing','Corporate'],
+    gallery:['https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Shipping & Delivery of Charging Stations',
+    cat:'Air Freight',
+    img:'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Handled the time-critical air freight shipment of multiple EV charging station units from the manufacturer overseas to installation sites across the country. The project required precise weight and dimension planning to maximise pallet space on cargo aircraft.</p><p>All units were delivered on schedule with full customs clearance and final-mile delivery to each installation site completed seamlessly.</p>',
+    tags:['Air Freight','Express Delivery','EV Equipment','Customs Clearance'],
+    gallery:['https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Importation of Yacht',
+    cat:'Special Cargo',
+    img:'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Managed the complete importation of a private luxury sailing yacht. The project included chartering a suitable heavy-lift vessel, coordinating crane operations at the origin and destination port, and preparing all import documentation including valuation and customs duty assessment.</p><p>Our team worked closely with the marina and port authorities to ensure a smooth berth allocation and safe placement of the yacht upon arrival.</p>',
+    tags:['Project Cargo','Import','Crane Operations','Customs Duty','Marina Coordination'],
+    gallery:['https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Importation of Vans',
+    cat:'Land / Vehicle',
+    img:'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Successfully completed a bulk importation project for a fleet of commercial delivery vans. Utilised Roll-on Roll-off (RoRo) vessels for cost-effective transportation, with full customs clearance, vehicle inspection coordination, and registration facilitation upon arrival.</p><p>The entire fleet was delivered to the client\'s depot within the agreed timeframe, ready for immediate deployment.</p>',
+    tags:['RoRo','Bulk Import','Vehicle Logistics','Fleet Management','Customs'],
+    gallery:['https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Unstuffing Oversize Cargo',
+    cat:'Special Cargo',
+    img:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Coordinated the complex unstuffing and extraction of heavy oversize industrial machinery from a 40-foot shipping container at the port facility. The operation required engagement of specialised heavy-lift equipment and a certified rigging team.</p><p>Our logistics team supervised the full operation from container opening through to safe placement of the machinery on low-bed trailers for onward delivery to the client\'s factory.</p>',
+    tags:['Heavy Lift','Oversize Cargo','Rigging','Industrial Machinery','Port Operations'],
+    gallery:['https://images.unsplash.com/photo-1553413077-190dd305871c?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Hazardous Cargo',
+    cat:'Hazardous',
+    img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Provided full dangerous goods logistics services for a chemical manufacturer, covering IATA and IMDG compliant packaging, DG declaration preparation, and multi-modal transportation. All handling was carried out by our certified DG personnel.</p><p>Basel permit applications and regulatory notifications were managed by our compliance team, ensuring zero delays and full legal adherence throughout the shipment lifecycle.</p>',
+    tags:['DG Certified','IATA Compliant','IMDG','Basel Permit','Chemical Cargo'],
+    gallery:['https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Free Trade Zone Warehouse',
+    cat:'Warehousing',
+    img:'https://images.unsplash.com/photo-1553413077-190dd305871c?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Operated a Free Trade Zone (FTZ) warehouse facility providing bonded storage services, inventory management, and customs-controlled distribution for multiple clients. Our FTZ warehouse allowed clients to defer duty payment and optimise their supply chain cash flow.</p><p>Services included goods receipt, stock counting, order picking, packing, and onward distribution both locally and internationally.</p>',
+    tags:['FTZ','Bonded Storage','Inventory Management','Distribution','Pick & Pack'],
+    gallery:['https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Import of Bumboat',
+    cat:'Sea Freight',
+    img:'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Handled the complete import logistics for a traditional bumboat vessel, including sea transportation arrangements, port handling, crane lifts for loading and discharge, and full import customs clearance documentation.</p><p>The vessel was delivered safely to the client\'s allocated berth on schedule, with all regulatory requirements fulfilled including vessel registration and maritime authority notifications.</p>',
+    tags:['Vessel Import','Sea Freight','Port Handling','Customs Clearance','Maritime'],
+    gallery:['https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&q=80&auto=format&fit=crop']
+  },
+  {
+    title:'Vehicle Container Stuffing',
+    cat:'Land / Vehicle',
+    img:'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=900&q=80&auto=format&fit=crop',
+    desc:'<p>Executed a vehicle container stuffing project for a car exporter, loading multiple vehicles into 40-foot containers for export. Custom steel bracing and wheel chocks were fabricated and installed to secure each vehicle and prevent movement during sea transit.</p><p>Our team managed container booking, stuffing supervision, documentation including packing lists and export declarations, and freight forwarding to the destination port.</p>',
+    tags:['Container Stuffing','Vehicle Export','Steel Bracing','FCL','Export Documentation'],
+    gallery:['https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=300&q=80&auto=format&fit=crop','https://images.unsplash.com/photo-1553413077-190dd305871c?w=300&q=80&auto=format&fit=crop']
+  }
+];
+
+/* ── MODAL ── */
+function openModal(idx){
+  const p = projects[idx];
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalImg').alt = p.title;
+  document.getElementById('modalCat').textContent = p.cat;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalDesc').innerHTML = p.desc;
+  // gallery
+  document.getElementById('modalGallery').innerHTML =
+    p.gallery.map(src=>`<img src="${src}" alt="Project gallery" loading="lazy"/>`).join('');
+  // tags
+  document.getElementById('modalTags').innerHTML =
+    p.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModalOutside(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resources – Logistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════ TOKENS ══════════════════════ */
+:root{
+  --primary:#00529B;
+  --primary2:#003d75;
+  --accent:#FFCC00;
+  --acc2:#e6b800;
+  --light:#f0f5fb;
+  --white:#ffffff;
+  --grey:#6b7280;
+  --text:#1e293b;
+  --border:#cfdce8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+
+/* ══════════════════════ TOP BAR ══════════════════════ */
+.topbar{background:var(--primary);text-align:center;padding:6px 5%;font-size:.75rem;color:rgba(255,255,255,.85);letter-spacing:.3px}
+.topbar a{color:var(--accent);font-weight:600;text-decoration:none;margin-left:6px}
+.topbar a:hover{text-decoration:underline}
+
+/* ══════════════════════ NAV ══════════════════════ */
+nav{position:sticky;top:0;z-index:200;background:var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:62px;box-shadow:0 2px 16px rgba(0,82,155,.3)}
+.logo{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.3px;flex-shrink:0}
+.logo span{color:var(--accent)}
+.nav-center{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-center>li{position:relative}
+.nav-center>li>a{display:flex;align-items:center;gap:3px;color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;font-weight:500;padding:.45rem .75rem;border-radius:5px;transition:color .2s,background .2s;white-space:nowrap}
+.nav-center>li>a:hover,.nav-center>li.active>a{color:var(--white);background:rgba(255,255,255,.12)}
+.arrow{font-size:.55rem;opacity:.7;transition:transform .2s}
+.nav-center>li:hover .arrow{transform:rotate(180deg)}
+.dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--white);border-radius:10px;min-width:200px;box-shadow:0 10px 36px rgba(0,82,155,.18);border:1px solid var(--border);overflow:hidden;animation:dropIn .2s ease;z-index:300}
+@keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-center>li:hover .dropdown{display:block}
+.dropdown a{display:block;padding:9px 15px;font-size:.8rem;color:var(--primary);text-decoration:none;border-bottom:1px solid var(--border);transition:background .15s,color .15s}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:var(--light);color:var(--primary);font-weight:600}
+.nav-cta{background:var(--accent);color:var(--primary);padding:.42rem 1.1rem;border-radius:6px;font-size:.8rem;font-weight:700;text-decoration:none;font-family:'Poppins',sans-serif;transition:background .2s,transform .15s;flex-shrink:0}
+.nav-cta:hover{background:var(--acc2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px}
+
+/* ══════════════════════ HERO ══════════════════════ */
+.hero{position:relative;height:340px;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,41,77,.92) 0%,rgba(0,41,77,.72) 55%,rgba(0,41,77,.38) 100%);z-index:1}
+.hero-body{position:relative;z-index:2;padding:58px 5% 46px;max-width:1160px;margin:0 auto}
+.breadcrumb{font-size:.74rem;color:rgba(255,255,255,.52);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:rgba(255,255,255,.52);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:rgba(255,255,255,.3)}
+.hero-body h1{font-family:'Poppins',sans-serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:-.5px;line-height:1.1;animation:fadeUp .65s ease both}
+.hero-body h1 span{color:var(--accent)}
+.hero-sub{color:rgba(255,255,255,.7);font-size:.88rem;margin-top:12px;max-width:500px;line-height:1.72;animation:fadeUp .65s .12s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════ STATS BAR ══════════════════════ */
+.stats-bar{background:var(--accent);display:flex;justify-content:center;flex-wrap:wrap}
+.stat{padding:16px 44px;text-align:center;border-right:1px solid rgba(0,82,155,.18);flex:1;min-width:130px}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1}
+.stat-label{font-size:.68rem;color:rgba(0,82,155,.8);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+/* ══════════════════════ COMMON ══════════════════════ */
+.section-tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px;font-family:'Poppins',sans-serif}
+.section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.3rem,2.2vw,1.85rem);font-weight:700;color:var(--primary);margin-bottom:14px;line-height:1.2}
+.section-title span{color:var(--accent)}
+.divider{width:40px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:20px}
+.divider-center{width:40px;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 18px}
+.btn-accent{background:var(--accent);color:var(--primary);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:background .2s,transform .2s;display:inline-block}
+.btn-accent:hover{background:var(--acc2);transform:translateY(-2px)}
+.btn-outline{border:2px solid rgba(255,255,255,.55);color:var(--white);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-primary{background:var(--primary);color:var(--white);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:background .2s,transform .2s;display:inline-block}
+.btn-primary:hover{background:var(--primary2);transform:translateY(-2px)}
+
+/* ══════════════════════ INTRO SECTION ══════════════════════ */
+.intro-section{max-width:1160px;margin:0 auto;padding:68px 5%}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.intro-text p{color:var(--grey);line-height:1.85;font-size:.87rem;margin-bottom:13px}
+.intro-visual{position:relative}
+.intro-img-box{width:100%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 12px 40px rgba(0,82,155,.14)}
+.intro-img-box img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.intro-img-box:hover img{transform:scale(1.04)}
+.intro-img-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38%;background:linear-gradient(transparent,rgba(0,41,77,.5))}
+.intro-img-box .img-label{position:absolute;bottom:18px;left:18px;background:var(--accent);color:var(--primary);font-family:'Poppins',sans-serif;font-weight:700;font-size:.75rem;padding:6px 14px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;z-index:1}
+.years-badge{position:absolute;top:-16px;right:-16px;width:88px;height:88px;background:var(--accent);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(255,204,0,.45)}
+.years-badge .ynum{font-family:'Poppins',sans-serif;font-size:1.55rem;font-weight:800;color:var(--primary);line-height:1}
+.years-badge .ytxt{font-size:.55rem;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;text-align:center;line-height:1.3;font-weight:700}
+
+/* ══════════════════════ CATEGORY TABS ══════════════════════ */
+.tabs-section{background:var(--light);border-bottom:1px solid var(--border)}
+.tabs-inner{max-width:1160px;margin:0 auto;padding:0 5%;display:flex;align-items:center;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-btn{flex-shrink:0;padding:16px 20px;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;color:var(--grey);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap}
+.tab-btn:hover{color:var(--primary)}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--accent)}
+
+/* ══════════════════════ FEATURED ARTICLE ══════════════════════ */
+.featured-section{max-width:1160px;margin:0 auto;padding:60px 5% 40px}
+.featured-article{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,82,155,.07)}
+.fa-img{height:400px;position:relative;overflow:hidden}
+.fa-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.featured-article:hover .fa-img img{transform:scale(1.04)}
+.fa-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,41,77,.5) 0%,transparent 60%)}
+.fa-badge{position:absolute;top:20px;left:20px;background:var(--accent);color:var(--primary);font-family:'Poppins',sans-serif;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:5px 14px;border-radius:4px}
+.fa-body{padding:36px 40px 36px 0}
+.fa-cat{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--primary);background:var(--light);padding:3px 10px;border-radius:3px;margin-bottom:14px;font-family:'Poppins',sans-serif}
+.fa-body h2{font-family:'Poppins',sans-serif;font-size:clamp(1.1rem,2vw,1.5rem);font-weight:800;color:var(--primary);line-height:1.25;margin-bottom:14px}
+.fa-body p{color:var(--grey);font-size:.85rem;line-height:1.82;margin-bottom:20px}
+.fa-meta{display:flex;align-items:center;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.fa-meta span{font-size:.72rem;color:var(--grey);display:flex;align-items:center;gap:5px}
+.fa-link{display:inline-flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:700;color:var(--primary);text-decoration:none;transition:gap .2s}
+.fa-link:hover{gap:14px}
+.fa-link::after{content:'→';font-size:1rem}
+
+/* ══════════════════════ ARTICLES GRID ══════════════════════ */
+.articles-section{max-width:1160px;margin:0 auto;padding:20px 5% 68px}
+.articles-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:14px}
+.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.art-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:box-shadow .25s,transform .25s}
+.art-card:hover{box-shadow:0 14px 40px rgba(0,82,155,.12);transform:translateY(-5px)}
+.art-card::before{content:'';display:block;height:4px;background:var(--accent)}
+.art-img{height:190px;overflow:hidden;position:relative}
+.art-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.art-card:hover .art-img img{transform:scale(1.07)}
+.art-cat-badge{position:absolute;top:12px;left:12px;background:var(--primary);color:var(--white);font-family:'Poppins',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:4px}
+.art-body{padding:20px 20px 14px;flex:1;display:flex;flex-direction:column}
+.art-body h3{font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:700;color:var(--primary);margin-bottom:8px;line-height:1.38}
+.art-body p{font-size:.8rem;color:var(--grey);line-height:1.7;flex:1}
+.art-footer{padding:14px 20px 18px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);margin-top:10px}
+.art-date{font-size:.7rem;color:var(--grey);display:flex;align-items:center;gap:5px}
+.art-readmore{font-size:.74rem;font-weight:700;color:var(--primary);font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:4px;transition:gap .15s}
+.art-card:hover .art-readmore{gap:8px}
+.art-readmore::after{content:'→'}
+
+/* ══════════════════════ GUIDES SECTION ══════════════════════ */
+.guides-section{background:var(--light)}
+.guides-inner{max-width:1160px;margin:0 auto;padding:68px 5%}
+.guides-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+.guide-card{background:var(--white);border:1px solid var(--border);border-radius:14px;display:flex;gap:18px;align-items:flex-start;padding:22px 22px 22px 20px;text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s;border-left:4px solid var(--accent)}
+.guide-card:hover{box-shadow:0 8px 28px rgba(0,82,155,.1);transform:translateY(-3px)}
+.guide-card-img{width:72px;height:72px;border-radius:10px;overflow:hidden;flex-shrink:0}
+.guide-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.guide-body h4{font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;color:var(--primary);margin-bottom:5px;line-height:1.3}
+.guide-body p{font-size:.78rem;color:var(--grey);line-height:1.65}
+.guide-tag{display:inline-block;margin-top:8px;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary);background:var(--light);border:1px solid var(--border);padding:2px 9px;border-radius:3px;font-family:'Poppins',sans-serif}
+
+/* ══════════════════════ WHY US (Resources variant) ══════════════════════ */
+.why-section{background:var(--primary);position:relative;overflow:hidden}
+.why-section::before{content:'';position:absolute;right:-100px;top:-100px;width:460px;height:460px;border-radius:50%;background:rgba(255,204,0,.06)}
+.why-inner{max-width:1160px;margin:0 auto;padding:68px 5%;position:relative;z-index:1}
+.why-inner .section-tag{color:rgba(255,255,255,.5)}
+.why-inner .section-title{color:var(--white)}
+.why-inner .section-title span{color:var(--accent)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.why-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:22px 16px;transition:background .2s,transform .2s}
+.why-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px)}
+.why-card-img{width:100%;height:80px;border-radius:9px;overflow:hidden;margin-bottom:14px}
+.why-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.why-card h3{font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:700;color:var(--white);margin-bottom:7px}
+.why-card p{font-size:.76rem;color:rgba(255,255,255,.65);line-height:1.7}
+
+/* ══════════════════════ NEWSLETTER ══════════════════════ */
+.newsletter-section{max-width:1160px;margin:0 auto;padding:68px 5%}
+.newsletter-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.nl-text p{color:var(--grey);font-size:.87rem;line-height:1.85;margin-bottom:13px}
+.nl-form-box{background:var(--light);border:1px solid var(--border);border-radius:16px;padding:32px 28px}
+.nl-form-box h3{font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:6px}
+.nl-form-box .fsub{font-size:.8rem;color:var(--grey);margin-bottom:20px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.75rem;font-weight:600;color:var(--text);margin-bottom:5px}
+.field input,.field select{width:100%;padding:10px 13px;font-family:'Inter',sans-serif;font-size:.82rem;border:1.5px solid var(--border);border-radius:8px;outline:none;transition:border .2s;background:var(--white);color:var(--text)}
+.field input:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,82,155,.1)}
+.btn-submit{width:100%;background:var(--primary);color:var(--white);border:none;cursor:pointer;padding:12px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;transition:background .2s,transform .15s;margin-top:4px}
+.btn-submit:hover{background:var(--primary2);transform:translateY(-1px)}
+.success-msg{display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;color:#065f46;border-radius:8px;padding:11px;font-size:.82rem;margin-top:10px;text-align:center}
+
+/* ══════════════════════ CTA STRIP ══════════════════════ */
+.cta-strip{background:linear-gradient(90deg,var(--primary) 0%,var(--primary2) 100%);padding:52px 5%;text-align:center}
+.cta-strip h2{font-family:'Poppins',sans-serif;font-size:clamp(1.2rem,2.4vw,1.75rem);font-weight:700;color:var(--white);margin-bottom:10px}
+.cta-strip p{color:rgba(255,255,255,.75);font-size:.86rem;margin-bottom:24px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ══════════════════════ FOOTER ══════════════════════ */
+footer{background:var(--primary);color:rgba(255,255,255,.65);padding:52px 5% 24px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;max-width:1160px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand .flogo{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--white);text-decoration:none;display:block;margin-bottom:12px}
+.footer-brand .flogo span{color:var(--accent)}
+.footer-brand p{font-size:.78rem;line-height:1.75;max-width:240px}
+.footer-social{display:flex;gap:8px;margin-top:16px}
+.fsoc{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.8rem;transition:background .2s;color:var(--white)}
+.fsoc:hover{background:var(--accent);color:var(--primary)}
+.fcol h4{font-family:'Poppins',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--white);margin-bottom:14px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:.78rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--accent)}
+.fcol address{font-style:normal;font-size:.78rem;line-height:1.85}
+.footer-bottom{max-width:1160px;margin:20px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:.72rem;flex-wrap:wrap;gap:10px}
+.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ══════════════════════ FLOATING ══════════════════════ */
+.floating-actions{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:300}
+.fab{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transition:transform .2s}
+.fab:hover{transform:scale(1.12)}
+.fab-phone{background:var(--primary);color:var(--white)}
+.fab-mail{background:var(--accent);color:var(--primary)}
+.fab-wa{background:#25d366;color:var(--white)}
+
+/* ══════════════════════ MOBILE MENU ══════════════════════ */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:1000;background:var(--primary);padding:72px 5% 36px;flex-direction:column;gap:4px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mm-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:600;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-menu a:hover{color:var(--accent)}
+.mm-sub{font-family:'Inter',sans-serif!important;font-size:.82rem!important;font-weight:400!important;padding-left:14px!important;color:rgba(255,255,255,.55)!important}
+
+/* ══════════════════════ RESPONSIVE ══════════════════════ */
+@media(max-width:1060px){.nav-center{display:none}.hamburger{display:flex}.articles-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.intro-grid,.featured-article,.newsletter-grid{grid-template-columns:1fr}.fa-body{padding:28px 28px 28px 28px}.why-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}.years-badge{top:-10px;right:-10px;width:76px;height:76px}}
+@media(max-width:600px){.articles-grid{grid-template-columns:1fr}.guides-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.stats-bar{flex-direction:column}.stat{border-right:none;border-bottom:1px solid rgba(0,82,155,.15)}.why-grid{grid-template-columns:1fr}}
+
+/* ══════════════════════ ANIMATIONS ══════════════════════ */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Your Trusted Logistics Partner — Serving India &amp; the World Since 2026. <a href="contact.html">Get a Quote →</a></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="logo"> <span>Logistics</span></a>
+  <ul class="nav-center">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li>
+      <a href="service.html">Services <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="service.html#air">✈️ Air Freight</a>
+        <a href="service.html#sea">🚢 Sea Freight</a>
+        <a href="service.html#land">🚛 Land Freight</a>
+        <a href="service.html#ware">🏭 Warehousing</a>
+        <a href="service.html#gen">📦 General Freight</a>
+        <a href="service.html#haz">⚠️ Hazardous Cargo</a>
+      </div>
+    </li>
+    <li class="active"><a href="resource.html">Resources</a></li>
+    <li><a href="join-our-team.html">Join Our Team</a></li>
+    <li><a href="project.html">Projects</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu()">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="service.html">Services</a>
+  <a href="service.html#air" class="mm-sub">✈️ Air Freight</a>
+  <a href="service.html#sea" class="mm-sub">🚢 Sea Freight</a>
+  <a href="service.html#land" class="mm-sub">🚛 Land Freight</a>
+  <a href="service.html#ware" class="mm-sub">🏭 Warehousing</a>
+  <a href="service.html#gen" class="mm-sub">📦 General Freight</a>
+  <a href="service.html#haz" class="mm-sub">⚠️ Hazardous Cargo</a>
+  <a href="resource.html">Resources</a>
+  <a href="join-our-team.html">Join Our Team</a>
+  <a href="project.html">Projects</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img"
+       src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=1600&q=80&auto=format&fit=crop"
+       alt="Logistics Resources"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span style="color:rgba(255,255,255,.75)">Resources</span>
+    </div>
+    <h1>Logistics <span>Resources</span></h1>
+    <p class="hero-sub">Stay informed with our latest industry guides, trade insights, shipping tips, and regulatory updates — all in one place.</p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Articles &amp; Guides</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Resource Categories</div></div>
+  <div class="stat"><div class="stat-num">Free</div><div class="stat-label">All Resources</div></div>
+  <div class="stat"><div class="stat-num">Global</div><div class="stat-label">Trade Coverage</div></div>
+</div>
+
+<!-- INTRO SECTION -->
+<section class="intro-section">
+  <div class="intro-grid">
+    <div class="fade-up">
+      <p class="section-tag">Knowledge Hub</p>
+      <h2 class="section-title">Your Logistics <span>Knowledge Hub</span></h2>
+      <div class="divider"></div>
+      <p style="color: rgb(107, 114, 128);">Navigating the world of international freight can be complex. Our Resources section is built to equip you — whether you are a first-time shipper or an experienced logistics manager — with the knowledge to make confident, informed decisions.</p>
+      <p style="color: rgb(107, 114, 128);">From understanding Incoterms to choosing between FCL and LCL, our guides and articles break down industry concepts into clear, actionable insights tailored to businesses operating in India and internationally.</p>
+      <a href="#articles" class="btn-accent" style="margin-top:18px">Browse All Articles →</a>
+    </div>
+    <div class="intro-visual fade-up">
+      <div class="intro-img-box">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&q=80&auto=format&fit=crop" alt="Logistics knowledge hub"/>
+        <span class="img-label">Knowledge Hub</span>
+      </div>
+      <div class="years-badge">
+        <span class="ynum">20+</span>
+        <span class="ytxt">Free<br>Resources</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY TABS -->
+<div class="tabs-section">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="filterCat('all',this)">All Resources</button>
+    <button class="tab-btn" onclick="filterCat('shipping',this)">Shipping Tips</button>
+    <button class="tab-btn" onclick="filterCat('customs',this)">Customs &amp; Trade</button>
+    <button class="tab-btn" onclick="filterCat('incoterms',this)">Incoterms</button>
+    <button class="tab-btn" onclick="filterCat('industry',this)">Industry News</button>
+    <button class="tab-btn" onclick="filterCat('warehousing',this)">Warehousing</button>
+    <button class="tab-btn" onclick="filterCat('compliance',this)">Compliance</button>
+  </div>
+</div>
+
+<!-- FEATURED ARTICLE -->
+<section class="featured-section fade-up">
+  <div style="margin-bottom:24px">
+    <p class="section-tag">Featured</p>
+    <h2 class="section-title">Featured <span>Article</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="featured-article" data-cat="incoterms">
+    <div class="fa-img">
+      <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=900&q=80&auto=format&fit=crop" alt="Incoterms 2020 Guide"/>
+      <div class="fa-overlay"></div>
+      <span class="fa-badge">⭐ Featured</span>
+    </div>
+    <div class="fa-body">
+      <span class="fa-cat">Incoterms</span>
+      <h2>A Complete Guide to Incoterms 2020 for Importers &amp; Exporters</h2>
+      <div class="fa-meta">
+        <span>📅 May 2026</span>
+        <span>📖 12 min read</span>
+        <span>🏷️ Beginner Friendly</span>
+      </div>
+      <p>Understanding the 11 Incoterms 2020 rules is essential for any business engaged in international trade. This comprehensive guide explains each term, clarifies buyer and seller responsibilities, and helps you choose the right Incoterm for your specific shipment to avoid costly disputes.</p>
+      <a href="#" class="fa-link">Read Full Article</a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES GRID -->
+<section class="articles-section" id="articles">
+  <div class="articles-header fade-up">
+    <div>
+      <p class="section-tag">Latest Articles</p>
+      <h2 class="section-title">Browse Our <span>Articles &amp; Guides</span></h2>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="articles-grid">
+
+    <a class="art-card fade-up" href="#" data-cat="shipping">
+      <div class="art-img">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format&fit=crop" alt="Air vs Sea Freight"/>
+        <span class="art-cat-badge">Shipping Tips</span>
+      </div>
+      <div class="art-body">
+        <h3>Air Freight vs Sea Freight: Which is Right for Your Cargo?</h3>
+        <p>A practical comparison covering cost, transit time, cargo type suitability, and risk factors to help you make the right choice.</p>
+      </div>
+      <div class="art-footer">
+        <span class="art-date">📅 Apr 2026</span>
+        <span class="art-readmore">Read More</span>
+      </div>
+    </a>
+
+    <a class="art-card fade-up" href="#" data-cat="customs">
+      <div class="art-img">
+        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80&auto=format&fit=crop" alt="Customs Clearance India"/>
+        <span class="art-cat-badge">Customs &amp; Trade</span>
+      </div>
+      <div class="art-body">
+        <h3>How Customs Clearance Works in India: A Step-by-Step Guide</h3>
+        <p>A complete walkthrough of the Indian customs process — from filing the Shipping Bill to receiving the out-of-charge order.</p>
+      </div>
+      <div class="art-footer">
+        <span class="art-date">📅 Apr 2026</span>
+        <span class="art-readmore">Read More</span>
+      </div>
+    </a>
+
+    <a class="art-card fade-up" href="#" data-cat="shipping">
+      <div class="art-img">
+        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80&auto=format&fit=crop" alt="Cargo Insurance"/>
+        <span class="art-cat-badge">Shipping Tips</span>
+      </div>
+      <div class="art-body">
+        <h3>Why Cargo Insurance is Essential for Every International Shipment</h3>
+        <p>Explore the types of cargo insurance, what is and is not covered, and how to protect your goods from loss or damage in transit.</p>
+      </div>
+      <div class="art-footer">
+        <span class="art-date">📅 Mar 2026</span>
+        <span class="art-readmore">Read More</span>
+      </div>
+    </a>
+
+    <a class="art-card fade-up" href="#" data-cat="industry">
+      <div class="art-img">
+        <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=600&q=80&auto=format&fit=crop" alt="Supply Chain Trends 2026"/>
+        <span class="art-cat-badge">Industry News</span>
+      </div>
+      <div class="art-body">
+        <h3>Top 5 Supply Chain Trends Shaping Global Logistics in 2026</h3>
+        <p>From AI-powered route optimisation to nearshoring, explore the biggest trends transforming global supply chains this year.</p>
+      </div>
+      <div class="art-footer">
+        <span class="art-date">📅 Mar 2026</span>
+        <span class="art-readmore">Read More</span>
+      </div>
+    </a>
+
+    <a class="art-card fade-up" href="#" data-cat="warehousing">
+      <div class="art-img">
+        <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80&auto=format&fit=crop" alt="Warehousing for SMEs"/>
+        <span class="art-cat-badge">Warehousing</span>
+      </div>
+      <div class="art-body">
+        <h3>Warehousing Solutions for SMEs: What You Need to Know</h3>
+        <p>How to choose the right warehousing setup — bonded, open, or temperature-controlled — and what questions to ask your provider.</p>
+      </div>
+      <div class="art-footer">
+        <span class="art-date">📅 Feb 2026</span>
+        <span class="art-readmore">Read More</span>
+      </div>
+    </a>
+
+    <a class="art-card fade-up" href="#" data-cat="compliance">
+      <div class="art-img">
+        <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80&auto=format&fit=crop" alt="Dangerous Goods Compliance"/>
+        <span class="art-cat-badge">Compliance</span>
+      </div>
+      <div class="art-body">
+        <h3>Shipping Dangerous Goods: IATA &amp; IMDG Rules Explained</h3>
+        <p>An overview of DG regulations for shipping hazardous materials safely by air and sea, including classification and documentation.</p>
+      </div>
+      <div class="art-footer">
+        <span class="art-date">📅 Feb 2026</span>
+        <span class="art-readmore">Read More</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- QUICK GUIDES -->
+<section class="guides-section">
+  <div class="guides-inner">
+    <div class="fade-up">
+      <p class="section-tag">Quick Reference</p>
+      <h2 class="section-title">Quick <span>Reference Guides</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="guides-grid">
+
+      <a class="guide-card fade-up" href="#">
+        <div class="guide-card-img">
+          <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=200&q=80&auto=format&fit=crop" alt="FCL vs LCL"/>
+        </div>
+        <div class="guide-body">
+          <h4>FCL vs LCL: Which Container Option is Right for You?</h4>
+          <p>Understand the key differences between Full Container Load and Less than Container Load shipments.</p>
+          <span class="guide-tag">Sea Freight</span>
+        </div>
+      </a>
+
+      <a class="guide-card fade-up" href="#">
+        <div class="guide-card-img">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=200&q=80&auto=format&fit=crop" alt="Cargo Packing"/>
+        </div>
+        <div class="guide-body">
+          <h4>How to Properly Pack Cargo for International Shipping</h4>
+          <p>Packing guidelines for air, sea, and land freight — prevent damage and avoid customs holds.</p>
+          <span class="guide-tag">Shipping Tips</span>
+        </div>
+      </a>
+
+      <a class="guide-card fade-up" href="#">
+        <div class="guide-card-img">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=200&q=80&auto=format&fit=crop" alt="HS Code Guide"/>
+        </div>
+        <div class="guide-body">
+          <h4>HS Code Classification: A Beginner's Guide</h4>
+          <p>What HS codes are, why they matter, and how to find the correct code for your product category.</p>
+          <span class="guide-tag">Customs &amp; Trade</span>
+        </div>
+      </a>
+
+      <a class="guide-card fade-up" href="#">
+        <div class="guide-card-img">
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=200&q=80&auto=format&fit=crop" alt="Last Mile India"/>
+        </div>
+        <div class="guide-body">
+          <h4>Understanding Last-Mile Delivery in India</h4>
+          <p>Key considerations for domestic last-mile logistics — pincode coverage, costs, and carrier selection.</p>
+          <span class="guide-tag">Land Freight</span>
+        </div>
+      </a>
+
+      <a class="guide-card fade-up" href="#">
+        <div class="guide-card-img">
+          <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=200&q=80&auto=format&fit=crop" alt="Export Documents Checklist"/>
+        </div>
+        <div class="guide-body">
+          <h4>Export &amp; Import Documents Checklist</h4>
+          <p>A printable checklist of all key documents required for smooth international trade and customs compliance.</p>
+          <span class="guide-tag">Documentation</span>
+        </div>
+      </a>
+
+      <a class="guide-card fade-up" href="#">
+        <div class="guide-card-img">
+          <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=200&q=80&auto=format&fit=crop" alt="3PL Guide"/>
+        </div>
+        <div class="guide-body">
+          <h4>What is 3PL? A Guide to Third-Party Logistics</h4>
+          <p>How 3PL services work, when to consider outsourcing your logistics, and what to look for in a provider.</p>
+          <span class="guide-tag">Supply Chain</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-section">
+  <div class="why-inner">
+    <p class="section-tag">Why Logistics</p>
+    <h2 class="section-title">Why Choose <span>Logistics</span></h2>
+    <div class="divider"></div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-card-img">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=80&auto=format&fit=crop" alt="Global Network"/>
+        </div>
+        <h3>Global Network</h3>
+        <p>Access to a worldwide freight network connecting India to all major ports and airports globally.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-card-img">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=80&auto=format&fit=crop" alt="SME Focus"/>
+        </div>
+        <h3>SME Focused</h3>
+        <p>Cost-optimised logistics solutions specifically designed to help small and medium businesses grow.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-card-img">
+          <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&q=80&auto=format&fit=crop" alt="24/7 Support"/>
+        </div>
+        <h3>24/7 Support</h3>
+        <p>Round-the-clock standby support to keep your shipments moving — no matter the time zone.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-card-img">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&q=80&auto=format&fit=crop" alt="End to End"/>
+        </div>
+        <h3>End-to-End Service</h3>
+        <p>From customs clearance to last-mile delivery, we manage every step of your supply chain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="newsletter-grid">
+    <div class="fade-up">
+      <p class="section-tag">Stay Updated</p>
+      <h2 class="section-title">Subscribe to Our <span>Newsletter</span></h2>
+      <div class="divider"></div>
+      <p class="nl-text">Get the latest logistics insights, trade news, shipping tips, and regulatory updates delivered directly to your inbox — no spam, just value.</p>
+      <ul style="list-style:none;margin-top:18px">
+        <li style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--grey);margin-bottom:9px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0"></span>Weekly industry news roundup</li>
+        <li style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--grey);margin-bottom:9px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0"></span>New guides and shipping resources</li>
+        <li style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--grey);margin-bottom:9px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0"></span>Regulatory updates affecting Indian trade</li>
+        <li style="display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--grey)"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0"></span>Exclusive SME logistics tips and offers</li>
+      </ul>
+    </div>
+    <div class="nl-form-box fade-up">
+      <h3>Subscribe Now</h3>
+      <p class="fsub">Join our growing community of logistics-savvy businesses.</p>
+      <div class="field">
+        <label>Full Name *</label>
+        <input type="text" id="nlname" placeholder="Your full name"/>
+      </div>
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" id="nlemail" placeholder="you@company.com"/>
+      </div>
+      <div class="field">
+        <label>Topics of Interest</label>
+        <select id="nltopic">
+          <option value="">Select a topic…</option>
+          <option>Air Freight</option>
+          <option>Sea Freight</option>
+          <option>Customs &amp; Trade</option>
+          <option>Warehousing</option>
+          <option>Incoterms &amp; Compliance</option>
+          <option>All Topics</option>
+        </select>
+      </div>
+      <button class="btn-submit" onclick="handleSubscribe()">Subscribe to Newsletter →</button>
+      <div class="success-msg" id="nlSuccess">✅ Subscribed! Thank you — watch your inbox for our next update.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <h2>Ready to Ship? Let's Move Your <span style="color:var(--accent)">Cargo</span></h2>
+  <p>Talk to our logistics specialists and receive a tailored freight solution for your business needs.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-accent">Get a Free Quote →</a>
+    <a href="service.html" class="btn-outline">Our Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand fcol">
+      <a href="index.html" class="flogo"> <span>Logistics</span></a>
+      <p>Your trusted freight and logistics partner across air, sea, and land. Moving your cargo reliably across the globe since 2026.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" class="fsoc" target="_blank">f</a>
+        <a href="#" class="fsoc" target="_blank">W</a>
+        <a href="mailto:info@mail.com" class="fsoc">✉</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="join-our-team.html">Join Our Team</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="service.html#air">Air Freight</a></li>
+        <li><a href="service.html#sea">Sea Freight</a></li>
+        <li><a href="service.html#land">Land Freight</a></li>
+        <li><a href="service.html#ware">Warehousing</a></li>
+        <li><a href="service.html#gen">General Freight</a></li>
+        <li><a href="service.html#haz">Hazardous Cargo</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact Us</h4>
+      <address>
+        Chennai, Tamil Nadu<br>
+        India<br><br>
+        <a href="tel:+91 xxxxx xxxxx">+91 XXXXX XXXXX</a><br>
+        <a href="tel:+91 xxxxx xxxxx">Fax: +91 XXXXX XXXXX</a><br>
+        <a href="mailto:info@mail.com">info@mail.com</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Logistics. All Rights Reserved.</span>
+    <span>
+      <a href="#">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+      <a href="#">Sitemap</a>
+    </span>
+  </div>
+</footer>
+
+<!-- FLOATING ACTIONS -->
+<div class="floating-actions">
+  <a href="tel:+91 xxxxx xxxxx" class="fab fab-phone" title="Call Us">📞</a>
+  <a href="mailto:info@mail.com" class="fab fab-mail" title="Email Us">✉️</a>
+  <a href="https://api.whatsapp.com/send?phone=91 xxxxx xxxxx" target="_blank" class="fab fab-wa" title="WhatsApp">💬</a>
+</div>
+
+<script>
+/* MOBILE MENU */
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+/* CATEGORY FILTER */
+function filterCat(cat,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards=[...document.querySelectorAll('.art-card'),...document.querySelectorAll('[data-cat]')];
+  cards.forEach(card=>{
+    if(cat==='all'||card.dataset.cat===cat){
+      card.style.display='';
+    } else {
+      card.style.display='none';
+    }
+  });
+}
+
+/* NEWSLETTER SUBSCRIBE */
+function handleSubscribe(){
+  const name=document.getElementById('nlname').value.trim();
+  const email=document.getElementById('nlemail').value.trim();
+  if(!name||!email){alert('Please fill in your name and email.');return;}
+  if(!/\S+@\S+\.\S+/.test(email)){alert('Please enter a valid email address.');return;}
+  document.getElementById('nlSuccess').style.display='block';
+  document.getElementById('nlname').value='';
+  document.getElementById('nlemail').value='';
+  document.getElementById('nltopic').selectedIndex=0;
+}
+
+/* SCROLL ANIMATIONS */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

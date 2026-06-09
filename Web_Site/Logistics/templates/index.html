@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Logistics – Credible One-Stop Logistic Service Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════ TOKENS ═══════════════════════════════ */
+:root {
+  --primary:  #00529B;
+  --primary2: #003d75;
+  --accent:   #FFCC00;
+  --acc2:     #e6b800;
+  --light:    #f0f5fb;
+  --white:    #ffffff;
+  --grey:     #6b7280;
+  --text:     #1e293b;
+  --border:   #cfdce8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+
+/* ═══ TOP BAR ═══ */
+.topbar{background:var(--primary);text-align:center;padding:6px 5%;font-size:.75rem;color:rgba(255,255,255,.85);letter-spacing:.3px}
+.topbar a{color:var(--accent);font-weight:600;text-decoration:none;margin-left:6px}
+.topbar a:hover{text-decoration:underline}
+
+/* ═══ NAV ═══ */
+nav{position:sticky;top:0;z-index:200;background:var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:62px;box-shadow:0 2px 16px rgba(0,82,155,.3)}
+.logo{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.3px;flex-shrink:0}
+.logo span{color:var(--accent)}
+.nav-center{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-center>li{position:relative}
+.nav-center>li>a{display:flex;align-items:center;gap:3px;color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;font-weight:500;padding:.45rem .75rem;border-radius:5px;transition:color .2s,background .2s;white-space:nowrap}
+.nav-center>li>a:hover,.nav-center>li.active>a{color:var(--white);background:rgba(255,255,255,.12)}
+.arrow{font-size:.55rem;opacity:.7;transition:transform .2s}
+.nav-center>li:hover .arrow{transform:rotate(180deg)}
+.dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--white);border-radius:10px;min-width:200px;box-shadow:0 10px 36px rgba(0,82,155,.18);border:1px solid var(--border);overflow:hidden;animation:dropIn .2s ease;z-index:300}
+@keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-center>li:hover .dropdown{display:block}
+.dropdown a{display:block;padding:9px 15px;font-size:.8rem;color:var(--primary);text-decoration:none;border-bottom:1px solid var(--border);transition:background .15s,color .15s}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:var(--light);color:var(--primary);font-weight:600}
+.nav-cta{background:var(--accent);color:var(--primary);padding:.42rem 1.1rem;border-radius:6px;font-size:.8rem;font-weight:700;text-decoration:none;font-family:'Poppins',sans-serif;transition:background .2s,transform .15s;flex-shrink:0}
+.nav-cta:hover{background:var(--acc2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px}
+
+/* ═══ HERO SLIDER ═══ */
+.hero{position:relative;height:calc(100vh - 62px);min-height:520px;max-height:820px;overflow:hidden;background:var(--primary)}
+.slides{display:flex;height:100%;transition:transform .8s cubic-bezier(.77,0,.175,1)}
+.slide{min-width:100%;height:100%;position:relative;display:flex;align-items:center;padding:0 8%}
+.slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,41,77,.9) 0%,rgba(0,41,77,.65) 55%,rgba(0,41,77,.2) 100%);z-index:1}
+.slide-content{position:relative;z-index:2;max-width:580px}
+.slide-tag{display:inline-block;background:var(--accent);color:var(--primary);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:4px 12px;border-radius:3px;margin-bottom:16px;font-family:'Poppins',sans-serif}
+.slide-content h1{font-family:'Poppins',sans-serif;font-size:clamp(1.7rem,3.8vw,2.9rem);font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:-.5px;line-height:1.1;margin-bottom:14px}
+.slide-content h1 em{color:var(--accent);font-style:normal}
+.slide-content p{color:rgba(255,255,255,.75);font-size:.88rem;line-height:1.7;margin-bottom:26px}
+.slide-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero-primary{background:var(--accent);color:var(--primary);padding:11px 26px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;text-decoration:none;transition:background .2s,transform .15s}
+.btn-hero-primary:hover{background:var(--acc2);transform:translateY(-2px)}
+.btn-hero-outline{border:2px solid rgba(255,255,255,.55);color:var(--white);padding:11px 26px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;text-decoration:none;transition:all .2s}
+.btn-hero-outline:hover{border-color:var(--accent);color:var(--accent)}
+.slider-dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:background .3s,transform .3s;border:none}
+.dot.active{background:var(--accent);transform:scale(1.4)}
+.slider-prev,.slider-next{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:var(--white);font-size:1rem;cursor:pointer;z-index:10;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.slider-prev{left:18px}.slider-next{right:18px}
+.slider-prev:hover,.slider-next:hover{background:var(--accent);color:var(--primary)}
+.scroll-hint{position:absolute;bottom:22px;right:5%;display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:.68rem;letter-spacing:1px;text-transform:uppercase;z-index:10}
+.scroll-line{width:1px;height:34px;background:rgba(255,255,255,.2);animation:scrollPulse 1.8s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.2}50%{opacity:.8}}
+
+/* ═══ STATS STRIP ═══ */
+.stats-strip{background:var(--accent);display:flex;justify-content:center;flex-wrap:wrap}
+.sstat{padding:16px 44px;text-align:center;border-right:1px solid rgba(0,82,155,.18);flex:1;min-width:130px}
+.sstat:last-child{border-right:none}
+.sstat-num{font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1}
+.sstat-lbl{font-size:.68rem;color:rgba(0,82,155,.8);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+/* ═══ COMMON ═══ */
+.section-tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px;font-family:'Poppins',sans-serif}
+.section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.3rem,2.2vw,1.85rem);font-weight:700;color:var(--primary);margin-bottom:14px;line-height:1.2}
+.section-title span{color:var(--accent);-webkit-text-stroke:.5px var(--acc2)}
+.divider{width:40px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:20px}
+.divider-center{width:40px;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 18px}
+
+/* ═══ ABOUT SECTION ═══ */
+.about-section{background:var(--white)}
+.about-inner{max-width:1160px;margin:0 auto;padding:72px 5%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-visual{position:relative}
+.about-img-main{width:100%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;position:relative}
+.about-img-main img{width:100%;height:100%;object-fit:cover;display:block}
+.about-img-main::after{content:'';position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(transparent,rgba(0,41,77,.45))}
+.about-img-badge{position:absolute;bottom:-16px;right:-16px;width:92px;height:92px;border-radius:50%;background:var(--accent);box-shadow:0 6px 22px rgba(255,204,0,.45);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.about-img-badge .bn{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1}
+.about-img-badge .bl{font-size:.55rem;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;text-align:center;line-height:1.3;font-weight:700}
+.about-float-card{position:absolute;top:-16px;left:-16px;background:var(--white);border-radius:12px;padding:13px 17px;box-shadow:0 8px 26px rgba(0,82,155,.13);border-left:4px solid var(--accent)}
+.afc-label{font-size:.64rem;color:var(--grey);text-transform:uppercase;letter-spacing:.5px}
+.afc-value{font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary);margin-top:2px}
+.about-text p{color:var(--grey);font-size:.87rem;line-height:1.85;margin-bottom:13px}
+.mv-mini{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.mv-mini-card{background:var(--light);border-radius:11px;padding:16px;border-top:3px solid var(--accent)}
+.mv-mini-card h4{font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--primary);margin-bottom:6px}
+.mv-mini-card p{font-size:.78rem;color:var(--grey);line-height:1.6}
+.btn-primary{display:inline-block;margin-top:20px;background:var(--primary);color:var(--white);padding:10px 26px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;text-decoration:none;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--primary2);transform:translateY(-2px)}
+
+/* ═══ SERVICES ═══ */
+.services-section{background:var(--light)}
+.services-inner{max-width:1160px;margin:0 auto;padding:72px 5%}
+.services-header{text-align:center;margin-bottom:40px}
+.services-header p{color:var(--grey);max-width:480px;margin:0 auto;line-height:1.7;font-size:.86rem}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s}
+.service-card:hover{box-shadow:0 14px 38px rgba(0,82,155,.12);transform:translateY(-5px)}
+.service-card-img{height:165px;position:relative;overflow:hidden}
+.service-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.service-card:hover .service-card-img img{transform:scale(1.06)}
+.service-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,41,77,.5) 100%)}
+.service-card-body{padding:18px 18px 14px;flex:1}
+.service-card-body h3{font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.3px;margin-bottom:7px}
+.service-card-body p{font-size:.8rem;color:var(--grey);line-height:1.65}
+.service-card-link{display:flex;align-items:center;gap:6px;margin:10px 18px 16px;font-size:.74rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px}
+.service-card-link::after{content:'→';transition:transform .2s}
+.service-card:hover .service-card-link::after{transform:translateX(4px)}
+.services-cta{text-align:center;margin-top:32px}
+.btn-secondary{display:inline-block;border:2px solid var(--primary);color:var(--primary);padding:10px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;text-decoration:none;transition:background .2s,color .2s}
+.btn-secondary:hover{background:var(--primary);color:var(--white)}
+
+/* ═══ WHY US ═══ */
+.whyus-section{background:var(--primary);position:relative;overflow:hidden}
+.whyus-section::before{content:'';position:absolute;right:-100px;top:-100px;width:480px;height:480px;border-radius:50%;background:rgba(255,204,0,.06)}
+.whyus-inner{max-width:1160px;margin:0 auto;padding:72px 5%;position:relative;z-index:1}
+.whyus-inner .section-tag{color:rgba(255,255,255,.5)}
+.whyus-inner .section-title{color:var(--white)}
+.whyus-inner .section-title span{color:var(--accent);-webkit-text-stroke:none}
+.whyus-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
+.why-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:24px 18px;transition:background .2s,transform .2s}
+.why-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px)}
+.why-icon{width:44px;height:44px;border-radius:11px;overflow:hidden;margin-bottom:14px;flex-shrink:0}
+.why-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.why-card h3{font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:700;color:var(--white);margin-bottom:8px}
+.why-card p{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.7}
+
+/* ═══ CAREERS ═══ */
+.careers-section{background:var(--light)}
+.careers-inner{max-width:1160px;margin:0 auto;padding:72px 5%;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.careers-text p{color:var(--grey);line-height:1.85;font-size:.87rem;margin-bottom:12px}
+.attr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px}
+.attr-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center}
+.attr-card .ai{width:100%;height:60px;object-fit:cover;border-radius:7px;margin-bottom:8px;display:block}
+.attr-card h4{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;color:var(--primary);margin-bottom:4px;text-transform:uppercase}
+.attr-card p{font-size:.7rem;color:var(--grey);line-height:1.5}
+.careers-visual{background:linear-gradient(135deg,var(--primary),var(--primary2));border-radius:16px;padding:36px 30px;color:var(--white);position:relative;overflow:hidden}
+.careers-visual::before{content:'';position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,204,0,.1)}
+.careers-visual h3{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:12px}
+.careers-visual p{color:rgba(255,255,255,.75);font-size:.85rem;line-height:1.7;margin-bottom:18px}
+.careers-email{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border-radius:8px;padding:12px 15px}
+.careers-email span{font-size:.85rem;color:rgba(255,255,255,.6)}
+.careers-email a{font-family:'Poppins',sans-serif;font-weight:700;color:var(--accent);text-decoration:none;font-size:.85rem}
+.careers-email a:hover{text-decoration:underline}
+
+/* ═══ CONTACT ═══ */
+.contact-section{background:var(--white)}
+.contact-inner{max-width:1160px;margin:0 auto;padding:72px 5%;display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:start}
+.contact-info>p{color:var(--grey);font-size:.85rem;line-height:1.7;margin-bottom:26px}
+.cinfo-card{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.cinfo-card:last-of-type{border-bottom:none}
+.cinfo-icon{width:38px;height:38px;border-radius:9px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.cinfo-body h4{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary);margin-bottom:3px}
+.cinfo-body p,.cinfo-body a{font-size:.82rem;color:var(--grey);text-decoration:none;line-height:1.6}
+.cinfo-body a:hover{color:var(--primary)}
+.contact-form-box{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:36px 32px;box-shadow:0 8px 36px rgba(0,82,155,.07)}
+.contact-form-box h3{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:5px;color:var(--primary)}
+.contact-form-box h3 span{color:var(--accent)}
+.contact-form-box .fsub{color:var(--grey);font-size:.8rem;margin-bottom:22px}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;margin-bottom:12px}
+.field label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary);margin-bottom:4px}
+.field input,.field select,.field textarea{border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--primary);background:var(--light);outline:none;transition:border-color .2s,box-shadow .2s;resize:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,82,155,.1);background:var(--white)}
+.field textarea{height:110px}
+.btn-submit{width:100%;background:var(--primary);color:var(--white);border:none;cursor:pointer;padding:12px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;transition:background .2s,transform .15s;margin-top:4px}
+.btn-submit:hover{background:var(--primary2);transform:translateY(-1px)}
+.success-msg{display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;color:#065f46;border-radius:8px;padding:11px;font-size:.82rem;margin-top:10px;text-align:center}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--primary);color:rgba(255,255,255,.65);padding:52px 5% 24px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;max-width:1160px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand .flogo{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--white);text-decoration:none;display:block;margin-bottom:12px}
+.footer-brand .flogo span{color:var(--accent)}
+.footer-brand p{font-size:.78rem;line-height:1.75;max-width:240px}
+.footer-social{display:flex;gap:8px;margin-top:16px}
+.fsoc{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.8rem;transition:background .2s;color:var(--white)}
+.fsoc:hover{background:var(--accent);color:var(--primary)}
+.fcol h4{font-family:'Poppins',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--white);margin-bottom:14px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:.78rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--accent)}
+.fcol address{font-style:normal;font-size:.78rem;line-height:1.85}
+.footer-bottom{max-width:1160px;margin:20px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:.72rem;flex-wrap:wrap;gap:10px}
+.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ═══ FLOATING ═══ */
+.floating-actions{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:300}
+.fab{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transition:transform .2s}
+.fab:hover{transform:scale(1.12)}
+.fab-phone{background:var(--primary);color:var(--white)}
+.fab-mail{background:var(--accent);color:var(--primary)}
+.fab-wa{background:#25d366;color:var(--white)}
+
+/* ═══ MOBILE MENU ═══ */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:1000;background:var(--primary);padding:72px 5% 36px;flex-direction:column;gap:4px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mm-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:600;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-menu a:hover{color:var(--accent)}
+.mm-sub{font-family:'Inter',sans-serif!important;font-size:.82rem!important;font-weight:400!important;padding-left:14px!important;color:rgba(255,255,255,.55)!important}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1060px){.nav-center{display:none}.hamburger{display:flex}.whyus-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.about-inner,.careers-inner,.contact-inner{grid-template-columns:1fr;gap:36px}.services-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}.form-row2{grid-template-columns:1fr}.mv-mini{grid-template-columns:1fr}}
+@media(max-width:580px){.services-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.stats-strip{flex-direction:column}.sstat{border-right:none;border-bottom:1px solid rgba(0,82,155,.15)}.whyus-grid{grid-template-columns:1fr}.attr-grid{grid-template-columns:1fr}.contact-form-box{padding:24px 16px}}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Your Trusted Logistics Partner — Serving India &amp; the World Since 2026. <a href="contact.html">Get a Quote →</a></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="logo"> <span>Logistics</span></a>
+  <ul class="nav-center">
+    <li class="active"><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li>
+      <a href="service.html">Services <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="service.html#air">✈️ Air Freight</a>
+        <a href="service.html#sea">🚢 Sea Freight</a>
+        <a href="service.html#land">🚛 Land Freight</a>
+        <a href="service.html#ware">🏭 Warehousing</a>
+        <a href="service.html#gen">📦 General Freight</a>
+        <a href="service.html#haz">⚠️ Hazardous Cargo</a>
+      </div>
+    </li>
+    <li><a href="resource.html">Resources</a></li>
+    <li><a href="join-our-team.html">Join Our Team</a></li>
+    <li><a href="project.html">Projects</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu()">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="service.html">Services</a>
+  <a href="service.html#air" class="mm-sub">✈️ Air Freight</a>
+  <a href="service.html#sea" class="mm-sub">🚢 Sea Freight</a>
+  <a href="service.html#land" class="mm-sub">🚛 Land Freight</a>
+  <a href="service.html#ware" class="mm-sub">🏭 Warehousing</a>
+  <a href="service.html#gen" class="mm-sub">📦 General Freight</a>
+  <a href="service.html#haz" class="mm-sub">⚠️ Hazardous Cargo</a>
+  <a href="resource.html">Resources</a>
+  <a href="join-our-team.html">Join Our Team</a>
+  <a href="project.html">Projects</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="hero">
+  <div class="slides" id="slides">
+
+    <!-- Slide 1 – Logistics Hub -->
+    <div class="slide">
+      <img class="slide-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80&auto=format&fit=crop" alt="Global logistics hub"/>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Established 2026</span>
+        <h1>Credible One-Stop <em>Logistic</em> Service Center</h1>
+        <p>International Freight Service &nbsp;|&nbsp; Multimodal Transportation</p>
+        <div class="slide-btns">
+          <a href="about.html" class="btn-hero-primary">Learn More</a>
+          <a href="contact.html" class="btn-hero-outline">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 – Air Freight -->
+    <div class="slide">
+      <img class="slide-img" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80&auto=format&fit=crop" alt="Air freight cargo plane"/>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Air Freight</span>
+        <h1>Fast &amp; Reliable <em>Air Freight</em> Solutions</h1>
+        <p>Time-critical shipments delivered globally with precision and speed.</p>
+        <div class="slide-btns">
+          <a href="service.html" class="btn-hero-primary">Our Services</a>
+          <a href="contact.html" class="btn-hero-outline">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 – Sea Freight -->
+    <div class="slide">
+      <img class="slide-img" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1600&q=80&auto=format&fit=crop" alt="Container ship sea freight"/>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Sea Freight</span>
+        <h1>Global <em>Sea Freight</em> &amp; NVOCC Services</h1>
+        <p>FCL and LCL solutions connecting India to every major port worldwide.</p>
+        <div class="slide-btns">
+          <a href="service.html" class="btn-hero-primary">Explore Services</a>
+          <a href="contact.html" class="btn-hero-outline">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 – Warehousing -->
+    <div class="slide">
+      <img class="slide-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=1600&q=80&auto=format&fit=crop" alt="Modern warehouse distribution"/>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Warehousing</span>
+        <h1>Warehousing &amp; <em>Wide-Area</em> Distribution</h1>
+        <p>Secure storage and efficient last-mile delivery across India and beyond.</p>
+        <div class="slide-btns">
+          <a href="service.html" class="btn-hero-primary">View Services</a>
+          <a href="contact.html" class="btn-hero-outline">Talk to Us</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <button class="slider-prev" onclick="moveSlide(-1)">‹</button>
+  <button class="slider-next" onclick="moveSlide(1)">›</button>
+  <div class="slider-dots" id="sliderDots"></div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="sstat"><div class="sstat-num">1+</div><div class="sstat-lbl">Years Experience</div></div>
+  <div class="sstat"><div class="sstat-num">6</div><div class="sstat-lbl">Service Categories</div></div>
+  <div class="sstat"><div class="sstat-num">24/7</div><div class="sstat-lbl">Standby Support</div></div>
+  <div class="sstat"><div class="sstat-num">Global</div><div class="sstat-lbl">Network Reach</div></div>
+  <div class="sstat"><div class="sstat-num">SME</div><div class="sstat-lbl">Cost Optimised</div></div>
+</div>
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-visual fade-up">
+      <div class="about-float-card">
+        <div class="afc-label">Established</div>
+        <div class="afc-value">Since 2026</div>
+      </div>
+      <div class="about-img-main">
+        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop" alt="Logistics operations team"/>
+      </div>
+      <div class="about-img-badge">
+        <span class="bn">1+</span>
+        <span class="bl">Years of<br>Excellence</span>
+      </div>
+    </div>
+    <div class="about-text fade-up">
+      <p class="section-tag">About Us</p>
+      <h2 class="section-title"><span>Logistics</span></h2>
+      <div class="divider"></div>
+      <p>Established in 2026, Logistics has paved the way for personalised services within the shipping and logistics industry. We aim to suit the requirements of international demand by offering a broad spectrum of logistics services.</p>
+      <p>We have the advantage of offering a global network to clients, which allows our partners to focus on delivering goods at a higher yield.</p>
+      <div class="mv-mini">
+        <div class="mv-mini-card">
+          <h4>🎯 Our Mission</h4>
+          <p>Optimise ease and cost saving for SME clients with tailored logistics solutions.</p>
+        </div>
+        <div class="mv-mini-card">
+          <h4>🔭 Our Vision</h4>
+          <p>Become a one-stop logistics service center for clients and networks worldwide.</p>
+        </div>
+      </div>
+      <a href="about.html" class="btn-primary">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="services-header fade-up">
+      <p class="section-tag">What We Do</p>
+      <h2 class="section-title">Our <span>Services</span></h2>
+      <div class="divider-center"></div>
+      <p>From air to sea to land, we offer end-to-end freight solutions tailored to your business needs.</p>
+    </div>
+    <div class="services-grid">
+
+      <a href="service.html#air" class="service-card fade-up">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format&fit=crop" alt="Air Freight"/>
+        </div>
+        <div class="service-card-body">
+          <h3>Air Freight</h3>
+          <p>Fast, reliable air freight services for time-critical shipments to destinations worldwide.</p>
+        </div>
+        <div class="service-card-link">Learn More</div>
+      </a>
+
+      <a href="service.html#sea" class="service-card fade-up">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80&auto=format&fit=crop" alt="Sea Freight"/>
+        </div>
+        <div class="service-card-body">
+          <h3>Sea Freight</h3>
+          <p>FCL, LCL, and NVOCC ocean freight solutions connecting India to every major port.</p>
+        </div>
+        <div class="service-card-link">Learn More</div>
+      </a>
+
+      <a href="service.html#land" class="service-card fade-up">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80&auto=format&fit=crop" alt="Land Freight"/>
+        </div>
+        <div class="service-card-body">
+          <h3>Land Freight</h3>
+          <p>Cross-border trucking and overland transport solutions across South Asia.</p>
+        </div>
+        <div class="service-card-link">Learn More</div>
+      </a>
+
+      <a href="service.html#ware" class="service-card fade-up">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80&auto=format&fit=crop" alt="Warehousing"/>
+        </div>
+        <div class="service-card-body">
+          <h3>Warehousing</h3>
+          <p>Secure warehousing and distribution services to streamline your supply chain.</p>
+        </div>
+        <div class="service-card-link">Learn More</div>
+      </a>
+
+      <a href="service.html#gen" class="service-card fade-up">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80&auto=format&fit=crop" alt="General Freight"/>
+        </div>
+        <div class="service-card-body">
+          <h3>General Freight</h3>
+          <p>Comprehensive multimodal transportation and door-to-door delivery solutions.</p>
+        </div>
+        <div class="service-card-link">Learn More</div>
+      </a>
+
+      <a href="service.html#haz" class="service-card fade-up">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80&auto=format&fit=crop" alt="Hazardous Cargo"/>
+        </div>
+        <div class="service-card-body">
+          <h3>Hazardous Cargo</h3>
+          <p>Certified handling and transportation of dangerous goods with full regulatory compliance.</p>
+        </div>
+        <div class="service-card-link">Learn More</div>
+      </a>
+
+    </div>
+    <div class="services-cta fade-up">
+      <a href="service.html" class="btn-secondary">View All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="whyus-section">
+  <div class="whyus-inner">
+    <p class="section-tag">Why Choose Us</p>
+    <h2 class="section-title">Your Trusted <span>Logistics Partner</span></h2>
+    <div class="divider"></div>
+    <div class="whyus-grid">
+      <div class="why-card fade-up">
+        <div class="why-icon">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=100&q=80&auto=format&fit=crop" alt="Global Network"/>
+        </div>
+        <h3>Global Network</h3>
+        <p>Extensive network of overseas agents and partners ensuring seamless delivery worldwide.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon">
+          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=100&q=80&auto=format&fit=crop" alt="24/7 Support"/>
+        </div>
+        <h3>24/7 Standby</h3>
+        <p>Round-the-clock customer service keeping you updated on every step of your shipment.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=100&q=80&auto=format&fit=crop" alt="Cost Savings"/>
+        </div>
+        <h3>Cost Savings</h3>
+        <p>Tailored logistics solutions optimised for cost efficiency, especially for SME clients.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&q=80&auto=format&fit=crop" alt="Award Winning"/>
+        </div>
+        <h3>Award-Winning</h3>
+        <p>Multiple industry accolades including Fair Employment and BizSafe certifications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="careers-section" id="careers">
+  <div class="careers-inner">
+    <div class="careers-text fade-up">
+      <p class="section-tag">Join Our Team</p>
+      <h2 class="section-title">Be Part of <span>Our Team</span></h2>
+      <div class="divider"></div>
+      <p>Logistics is looking for passionate individuals to join our growing team. We believe in nurturing talent and providing a dynamic work environment.</p>
+      <p>We support Fair Employment practices and Flexible Working Arrangements to help employees maintain work-life balance.</p>
+      <div class="attr-grid">
+        <div class="attr-card">
+          <img class="ai" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=200&q=80&auto=format&fit=crop" alt="Team people"/>
+          <h4>People</h4>
+          <p>Committed · Responsible · Active</p>
+        </div>
+        <div class="attr-card">
+          <img class="ai" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=80&auto=format&fit=crop" alt="Work style"/>
+          <h4>Work Style</h4>
+          <p>Dynamic · Initiative · Accommodating</p>
+        </div>
+        <div class="attr-card">
+          <img class="ai" src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=200&q=80&auto=format&fit=crop" alt="Work environment"/>
+          <h4>Environment</h4>
+          <p>Efficient · Effective · Challenging</p>
+        </div>
+      </div>
+    </div>
+    <div class="careers-visual fade-up">
+      <h3>Ready to Join Us?</h3>
+      <p>Send in your resume and take the first step towards an exciting career in logistics and freight forwarding.</p>
+      <div class="careers-email">
+        <span>📧</span>
+        <div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px">Send resume to</div>
+          <a href="mailto:info@mail.com">info@mail.com</a>
+        </div>
+      </div>
+      <a href="#" class="btn-primary" style="display:block;text-align:center;margin-top:18px;background:var(--accent);color:var(--primary)">View Open Positions →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info fade-up">
+      <p class="section-tag">Get in Touch</p>
+      <h2 class="section-title">Questions About Our <span>Freight Services?</span></h2>
+      <div class="divider"></div>
+      <p>Reach out to us and our team will be happy to assist you with any enquiries.</p>
+      <div class="cinfo-card">
+        <div class="cinfo-icon">📍</div>
+        <div class="cinfo-body"><h4>Address</h4><p>Chennai, Tamil Nadu<br>India</p></div>
+      </div>
+      <div class="cinfo-card">
+        <div class="cinfo-icon">📞</div>
+        <div class="cinfo-body"><h4>Phone</h4><a href="tel:+91xxxxxxxxxxx">+91 XXXXX XXXXX</a></div>
+      </div>
+      <div class="cinfo-card">
+        <div class="cinfo-icon">✉️</div>
+        <div class="cinfo-body"><h4>Email</h4><a href="mailto:info@mail.com">info@mail.com</a></div>
+      </div>
+      <div class="cinfo-card">
+        <div class="cinfo-icon">🕒</div>
+        <div class="cinfo-body"><h4>Business Hours</h4><p>Mon – Fri: 9:00 AM – 6:00 PM</p></div>
+      </div>
+    </div>
+    <div class="contact-form-box fade-up">
+      <h3>Let Us <span>Know!</span></h3>
+      <p class="fsub">Fill in the form and our team will get back to you shortly.</p>
+      <div class="form-row2">
+        <div class="field"><label>Name *</label><input type="text" id="fname" placeholder="Your full name"/></div>
+        <div class="field"><label>Phone *</label><input type="tel" id="fphone" placeholder="+91 XXXX XXXX"/></div>
+      </div>
+      <div class="field"><label>Email *</label><input type="email" id="femail" placeholder="you@company.com"/></div>
+      <div class="field">
+        <label>Subject</label>
+        <select id="fsubject">
+          <option value="">Select a subject…</option>
+          <option>Air Freight Inquiry</option>
+          <option>Sea Freight Inquiry</option>
+          <option>Land Freight Inquiry</option>
+          <option>Warehousing</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+      <div class="field"><label>Message *</label><textarea id="fmessage" placeholder="How can we help you?"></textarea></div>
+      <button class="btn-submit" onclick="handleSubmit()">Submit Message →</button>
+      <div class="success-msg" id="successMsg">✅ Thank you! We'll get back to you soon.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand fcol">
+      <a href="index.html" class="flogo"> <span>Logistics</span></a>
+      <p>Your trusted freight and logistics partner across air, sea, and land. Moving your cargo reliably across the globe since 2026.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" class="fsoc" target="_blank">f</a>
+        <a href="#" class="fsoc" target="_blank">W</a>
+        <a href="mailto:info@mail.com" class="fsoc">✉</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="join-our-team.html">Join Our Team</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="service.html#air">Air Freight</a></li>
+        <li><a href="service.html#sea">Sea Freight</a></li>
+        <li><a href="service.html#land">Land Freight</a></li>
+        <li><a href="service.html#ware">Warehousing</a></li>
+        <li><a href="service.html#gen">General Freight</a></li>
+        <li><a href="service.html#haz">Hazardous Cargo</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact Us</h4>
+      <address>
+        Chennai, Tamil Nadu<br>
+        India<br><br>
+        <a href="tel:+91 xxxxx xxxxx">+91 XXXXX XXXXX</a><br>
+        <a href="tel:+91 xxxxx xxxxx">Fax: +91 XXXXX XXXXX</a><br>
+        <a href="mailto:info@mail.com">info@mail.com</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Logistics. All Rights Reserved.</span>
+    <span>
+      <a href="#">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+      <a href="#">Sitemap</a>
+    </span>
+  </div>
+</footer>
+
+<!-- FLOATING ACTIONS -->
+<div class="floating-actions">
+  <a href="tel:+91 xxxxx xxxxx" class="fab fab-phone" title="Call Us">📞</a>
+  <a href="mailto:info@mail.com" class="fab fab-mail" title="Email Us">✉️</a>
+  <a href="https://api.whatsapp.com/send?phone=91 xxxxx xxxxx" target="_blank" class="fab fab-wa" title="WhatsApp">💬</a>
+</div>
+
+<script>
+/* SLIDER */
+let current=0;
+const totalSlides=4;
+const slidesEl=document.getElementById('slides');
+const dotsContainer=document.getElementById('sliderDots');
+let autoTimer;
+
+for(let i=0;i<totalSlides;i++){
+  const d=document.createElement('button');
+  d.className='dot'+(i===0?' active':'');
+  d.setAttribute('aria-label','Slide '+(i+1));
+  d.onclick=()=>goTo(i);
+  dotsContainer.appendChild(d);
+}
+
+function goTo(n){
+  current=(n+totalSlides)%totalSlides;
+  slidesEl.style.transform=`translateX(-${current*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===current));
+  resetTimer();
+}
+function moveSlide(dir){goTo(current+dir);}
+function resetTimer(){
+  clearInterval(autoTimer);
+  autoTimer=setInterval(()=>moveSlide(1),5500);
+}
+resetTimer();
+
+/* MOBILE MENU */
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+/* SCROLL ANIMATIONS */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+/* FORM */
+function handleSubmit(){
+  const name=document.getElementById('fname').value.trim();
+  const phone=document.getElementById('fphone').value.trim();
+  const email=document.getElementById('femail').value.trim();
+  const message=document.getElementById('fmessage').value.trim();
+  if(!name||!phone||!email||!message){alert('Please fill in all required fields.');return;}
+  if(!/\S+@\S+\.\S+/.test(email)){alert('Please enter a valid email address.');return;}
+  document.getElementById('successMsg').style.display='block';
+  ['fname','fphone','femail','fmessage'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fsubject').selectedIndex=0;
+}
+</script>
+</body>
+</html>

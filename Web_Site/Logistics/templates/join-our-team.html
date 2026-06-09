@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Join Our Team – Logistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════ TOKENS ═══════════════════ */
+:root{
+  --primary:  #00529B;
+  --primary2: #003d75;
+  --accent:   #FFCC00;
+  --acc2:     #e6b800;
+  --light:    #f0f5fb;
+  --white:    #ffffff;
+  --grey:     #6b7280;
+  --text:     #1e293b;
+  --border:   #cfdce8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+
+/* ═══ TOP BAR ═══ */
+.topbar{background:var(--primary);text-align:center;padding:6px 5%;font-size:.75rem;color:rgba(255,255,255,.85);letter-spacing:.3px}
+.topbar a{color:var(--accent);font-weight:600;text-decoration:none;margin-left:6px}
+.topbar a:hover{text-decoration:underline}
+
+/* ═══ NAV ═══ */
+nav{position:sticky;top:0;z-index:200;background:var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:62px;box-shadow:0 2px 16px rgba(0,82,155,.3)}
+.logo{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.3px;flex-shrink:0}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a{display:flex;align-items:center;gap:3px;color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;font-weight:500;padding:.45rem .75rem;border-radius:5px;transition:color .2s,background .2s;white-space:nowrap}
+.nav-links>li>a:hover,.nav-links>li.active>a{color:var(--white);background:rgba(255,255,255,.12)}
+.nav-arrow{font-size:.55rem;opacity:.7;transition:transform .2s}
+.nav-links>li:hover .nav-arrow{transform:rotate(180deg)}
+.dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--white);border-radius:10px;min-width:200px;box-shadow:0 10px 36px rgba(0,82,155,.18);border:1px solid var(--border);overflow:hidden;animation:dropIn .2s ease;z-index:300}
+@keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-links>li:hover .dropdown{display:block}
+.dropdown a{display:block;padding:9px 15px;font-size:.8rem;color:var(--primary);text-decoration:none;border-bottom:1px solid var(--border);transition:background .15s,color .15s}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:var(--light);color:var(--primary);font-weight:600}
+.nav-cta{background:var(--accent);color:var(--primary);padding:.42rem 1.1rem;border-radius:6px;font-size:.8rem;font-weight:700;text-decoration:none;font-family:'Poppins',sans-serif;transition:background .2s,transform .15s;flex-shrink:0}
+.nav-cta:hover{background:var(--acc2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;height:340px;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,41,77,.93) 0%,rgba(0,41,77,.72) 55%,rgba(0,41,77,.28) 100%);z-index:1}
+.hero-body{position:relative;z-index:2;padding:0 5%;max-width:1160px;margin:0 auto;height:100%;display:flex;flex-direction:column;justify-content:center}
+.breadcrumb{font-size:.73rem;color:rgba(255,255,255,.52);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:rgba(255,255,255,.52);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:rgba(255,255,255,.3)}
+.hero-body h1{font-family:'Poppins',sans-serif;font-size:clamp(1.75rem,3.5vw,2.65rem);font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:-.5px;line-height:1.1;animation:fadeUp .65s ease both}
+.hero-body h1 span{color:var(--accent)}
+.hero-body p{color:rgba(255,255,255,.72);font-size:.86rem;margin-top:10px;max-width:520px;line-height:1.72;animation:fadeUp .65s .12s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ═══ ACCENT STRIP ═══ */
+.accent-strip{background:var(--accent);display:flex;justify-content:center;flex-wrap:wrap}
+.as-item{display:flex;align-items:center;gap:10px;padding:14px 36px;border-right:1px solid rgba(0,82,155,.18);flex:1;min-width:180px}
+.as-item:last-child{border-right:none}
+.as-icon{width:36px;height:36px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;color:var(--white)}
+.as-text{display:flex;flex-direction:column}
+.as-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(0,82,155,.75);font-family:'Poppins',sans-serif}
+.as-value{font-size:.8rem;font-weight:600;color:var(--primary);font-family:'Poppins',sans-serif}
+
+/* ═══ COMMON ═══ */
+.section-tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px;font-family:'Poppins',sans-serif}
+.section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.25rem,2.1vw,1.8rem);font-weight:700;color:var(--primary);margin-bottom:13px;line-height:1.2}
+.section-title span{color:var(--accent)}
+.divider{width:38px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:18px}
+.divider-center{width:38px;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 16px}
+
+/* ═══ INTRO SECTION ═══ */
+.intro-section{max-width:1160px;margin:0 auto;padding:68px 5% 56px}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.intro-img-wrap{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 14px 44px rgba(0,82,155,.14)}
+.intro-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;transition:transform .5s}
+.intro-img-wrap:hover img{transform:scale(1.04)}
+.intro-img-badge{position:absolute;bottom:-16px;right:-16px;width:100px;height:100px;border-radius:50%;background:var(--accent);box-shadow:0 6px 22px rgba(255,204,0,.45);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.intro-img-badge .bn{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1}
+.intro-img-badge .bl{font-size:.55rem;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;text-align:center;line-height:1.3;font-weight:700}
+.intro-text p{color:var(--grey);font-size:.87rem;line-height:1.85;margin-bottom:13px}
+.email-cta{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:var(--white);padding:12px 22px;border-radius:9px;text-decoration:none;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;margin-top:6px;transition:background .2s,transform .2s}
+.email-cta:hover{background:var(--primary2);transform:translateY(-2px)}
+.email-cta span{font-size:1rem}
+
+/* ═══ ATTRIBUTES SECTION ═══ */
+.attr-section{background:var(--light);padding:64px 5%}
+.attr-inner{max-width:1160px;margin:0 auto}
+.attr-header{text-align:center;margin-bottom:44px}
+.attr-header p.desc{color:var(--grey);max-width:500px;margin:.8rem auto 0;font-size:.86rem;line-height:1.7}
+.attr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.attr-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:box-shadow .25s,transform .25s}
+.attr-card:hover{box-shadow:0 12px 36px rgba(0,82,155,.12);transform:translateY(-5px)}
+.attr-card-img{width:100%;height:180px;overflow:hidden;position:relative}
+.attr-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+.attr-card:hover .attr-card-img img{transform:scale(1.06)}
+.attr-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,41,77,.45) 100%)}
+.attr-card-body{padding:22px 22px 24px}
+.attr-card-body::before{content:'';display:block;height:3px;background:var(--accent);border-radius:2px;margin-bottom:14px}
+.attr-card-icon{width:44px;height:44px;border-radius:10px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:12px}
+.attr-card-body h3{font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:700;color:var(--primary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px}
+.attr-card-body p{font-size:.82rem;color:var(--grey);line-height:1.72}
+.attr-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.attr-tag{font-size:.68rem;color:var(--primary);background:var(--light);border:1px solid var(--border);border-radius:50px;padding:3px 10px;font-weight:600}
+
+/* ═══ PROGRAMMES SECTION ═══ */
+.prog-section{max-width:1160px;margin:0 auto;padding:64px 5%}
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+.prog-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s}
+.prog-card:hover{box-shadow:0 10px 30px rgba(0,82,155,.11);transform:translateY(-4px)}
+.prog-card-img{width:100%;height:160px;overflow:hidden}
+.prog-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.prog-card:hover .prog-card-img img{transform:scale(1.05)}
+.prog-card-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column}
+.prog-card-body::before{content:'';display:block;height:3px;background:var(--accent);border-radius:2px;margin-bottom:14px}
+.prog-badge{display:inline-block;background:var(--accent);color:var(--primary);font-family:'Poppins',sans-serif;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:50px;margin-bottom:10px}
+.prog-card-body h3{font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:700;color:var(--primary);margin-bottom:10px}
+.prog-card-body p{font-size:.82rem;color:var(--grey);line-height:1.72;flex:1}
+
+/* ═══ APPLICATION FORM ═══ */
+.apply-section{background:var(--light);padding:64px 5%}
+.apply-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1.45fr;gap:60px;align-items:start}
+
+/* left visual */
+.apply-visual{}
+.apply-visual-img{width:100%;border-radius:16px;overflow:hidden;box-shadow:0 10px 36px rgba(0,82,155,.13);margin-bottom:20px}
+.apply-visual-img img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.apply-perks{display:flex;flex-direction:column;gap:12px}
+.perk{display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--border);border-radius:11px;padding:13px 16px;transition:box-shadow .2s,transform .2s}
+.perk:hover{box-shadow:0 5px 18px rgba(0,82,155,.09);transform:translateX(4px)}
+.perk-img{width:38px;height:38px;border-radius:8px;overflow:hidden;flex-shrink:0}
+.perk-img img{width:100%;height:100%;object-fit:cover;display:block}
+.perk-body h4{font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:700;color:var(--primary);margin-bottom:3px}
+.perk-body p{font-size:.74rem;color:var(--grey);line-height:1.5}
+
+/* form box */
+.apply-form-box{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:36px 32px;box-shadow:0 10px 40px rgba(0,82,155,.07)}
+.apply-form-box h2{font-family:'Poppins',sans-serif;font-size:clamp(1.1rem,1.9vw,1.45rem);font-weight:700;margin-bottom:5px;color:var(--primary)}
+.apply-form-box h2 span{color:var(--accent)}
+.form-sub{color:var(--grey);font-size:.8rem;margin-bottom:24px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;margin-bottom:12px}
+.field label{font-size:.69rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary);margin-bottom:4px;font-family:'Poppins',sans-serif}
+.field input,.field select,.field textarea{border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Inter',sans-serif;font-size:.84rem;color:var(--text);background:var(--light);outline:none;transition:border-color .2s,box-shadow .2s;resize:none;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,82,155,.1);background:var(--white)}
+.field textarea{height:100px}
+/* file upload */
+.file-upload-wrap{position:relative;border:2px dashed var(--border);border-radius:9px;padding:20px;text-align:center;background:var(--light);cursor:pointer;transition:border-color .2s,background .2s}
+.file-upload-wrap:hover{border-color:var(--primary);background:#e8f0f9}
+.file-upload-wrap input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.file-upload-wrap .fu-icon{font-size:1.6rem;margin-bottom:6px;display:block}
+.file-upload-wrap p{font-size:.78rem;color:var(--grey);line-height:1.5}
+.file-upload-wrap p strong{color:var(--primary);font-weight:700}
+.file-name{font-size:.75rem;color:var(--primary);font-weight:600;margin-top:6px;display:none}
+/* checkbox */
+.check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
+.check-row input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--primary);flex-shrink:0;cursor:pointer}
+.check-row label{font-size:.78rem;color:var(--grey);line-height:1.55;cursor:pointer}
+.check-row label a{color:var(--primary);text-decoration:none;font-weight:600}
+.check-row label a:hover{text-decoration:underline}
+.btn-apply{width:100%;background:var(--primary);color:var(--white);border:none;cursor:pointer;padding:13px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.3px;transition:background .2s,transform .15s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-apply:hover{background:var(--primary2);transform:translateY(-1px)}
+.success-msg{display:none;background:#ecfdf5;border:1.5px solid #6ee7b7;color:#065f46;border-radius:8px;padding:12px 14px;font-size:.8rem;margin-top:12px;text-align:center}
+
+/* ═══ LIFE AT COMPANY ═══ */
+.life-section{background:var(--white);padding:64px 5%}
+.life-inner{max-width:1160px;margin:0 auto}
+.life-header{text-align:center;margin-bottom:40px}
+.life-gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-rows:auto auto;gap:14px}
+.life-img{border-radius:13px;overflow:hidden;position:relative}
+.life-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+.life-img:hover img{transform:scale(1.05)}
+.life-img.big{grid-row:span 2;min-height:360px}
+.life-img.sm{height:170px}
+.life-img::after{content:'';position:absolute;inset:0;background:rgba(0,41,77,.12);transition:background .3s}
+.life-img:hover::after{background:rgba(0,41,77,.05)}
+
+/* ═══ CTA STRIP ═══ */
+.cta-section{background:var(--primary);padding:56px 5%;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;right:-80px;top:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,204,0,.07)}
+.cta-section::after{content:'';position:absolute;left:-60px;bottom:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cta-inner{position:relative;z-index:1}
+.cta-section h2{font-family:'Poppins',sans-serif;font-size:clamp(1.2rem,2.3vw,1.75rem);font-weight:700;color:var(--white);margin-bottom:10px}
+.cta-section p{color:rgba(255,255,255,.72);font-size:.85rem;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-accent{background:var(--accent);color:var(--primary);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:background .2s,transform .2s}
+.btn-accent:hover{background:var(--acc2);transform:translateY(-2px)}
+.btn-outline-w{border:2px solid rgba(255,255,255,.5);color:var(--white);padding:11px 28px;border-radius:7px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:all .2s}
+.btn-outline-w:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--primary);color:rgba(255,255,255,.65);padding:50px 5% 24px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;max-width:1160px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand .flogo{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--white);text-decoration:none;display:block;margin-bottom:11px}
+.footer-brand .flogo span{color:var(--accent)}
+.footer-brand p{font-size:.77rem;line-height:1.75;max-width:240px}
+.footer-social{display:flex;gap:8px;margin-top:15px}
+.fsoc{width:31px;height:31px;border-radius:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.78rem;transition:background .2s;color:var(--white)}
+.fsoc:hover{background:var(--accent);color:var(--primary)}
+.fcol h4{font-family:'Poppins',sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--white);margin-bottom:13px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:.76rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--accent)}
+.fcol address{font-style:normal;font-size:.76rem;line-height:1.85}
+.footer-bottom{max-width:1160px;margin:18px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;flex-wrap:wrap;gap:10px}
+.footer-bottom a{color:rgba(255,255,255,.38);text-decoration:none}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ═══ FLOATING ═══ */
+.floating-actions{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:300}
+.fab{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transition:transform .2s}
+.fab:hover{transform:scale(1.12)}
+.fab-phone{background:var(--primary);color:var(--white)}
+.fab-mail{background:var(--accent);color:var(--primary)}
+.fab-wa{background:#25d366;color:var(--white)}
+
+/* ═══ MOBILE MENU ═══ */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:1000;background:var(--primary);padding:70px 5% 36px;flex-direction:column;gap:4px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mm-close{position:absolute;top:15px;right:18px;background:none;border:none;color:var(--white);font-size:1.45rem;cursor:pointer}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-family:'Poppins',sans-serif;font-size:.93rem;font-weight:600;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-menu a:hover{color:var(--accent)}
+.mm-sub{font-family:'Inter',sans-serif!important;font-size:.8rem!important;font-weight:400!important;padding-left:14px!important;color:rgba(255,255,255,.55)!important}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+.fade-up:nth-child(2){transition-delay:.1s}
+.fade-up:nth-child(3){transition-delay:.2s}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1060px){.nav-links{display:none}.hamburger{display:flex}.intro-grid{grid-template-columns:1fr;gap:36px}.apply-inner{grid-template-columns:1fr;gap:36px}.life-gallery{grid-template-columns:1fr 1fr}.life-img.big{grid-row:span 1;min-height:200px}.life-img.sm{height:160px}}
+@media(max-width:860px){.attr-grid{grid-template-columns:1fr 1fr}.prog-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}.accent-strip{flex-direction:column}.as-item{border-right:none;border-bottom:1px solid rgba(0,82,155,.15)}}
+@media(max-width:560px){.attr-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.life-gallery{grid-template-columns:1fr}.life-img.sm{height:180px}.apply-form-box{padding:24px 16px}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Your Trusted Logistics Partner — Serving India &amp; the World Since 2026. <a href="contact.html">Get a Quote →</a></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo"> <span>Logistics</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li>
+      <a href="service.html">Services <span class="nav-arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="service.html#air">✈️ Air Freight</a>
+        <a href="service.html#sea">🚢 Sea Freight</a>
+        <a href="service.html#land">🚛 Land Freight</a>
+        <a href="service.html#ware">🏭 Warehousing</a>
+        <a href="service.html#gen">📦 General Freight</a>
+        <a href="service.html#haz">⚠️ Hazardous Cargo</a>
+      </div>
+    </li>
+    <li><a href="resource.html">Resources</a></li>
+    <li class="active"><a href="join-our-team.html">Join Our Team</a></li>
+    <li><a href="project.html">Projects</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">Apply Now</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu()">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="service.html">Services</a>
+  <a href="service.html#air" class="mm-sub">✈️ Air Freight</a>
+  <a href="service.html#sea" class="mm-sub">🚢 Sea Freight</a>
+  <a href="service.html#land" class="mm-sub">🚛 Land Freight</a>
+  <a href="service.html#ware" class="mm-sub">🏭 Warehousing</a>
+  <a href="service.html#gen" class="mm-sub">📦 General Freight</a>
+  <a href="service.html#haz" class="mm-sub">⚠️ Hazardous Cargo</a>
+  <a href="resource.html">Resources</a>
+  <a href="join-our-team.html">Join Our Team</a>
+  <a href="project.html">Projects</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img"
+       src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop"
+       alt="Team colleagues working together"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>›</span>
+      <span style="color:rgba(255,255,255,.78)">Join Our Team</span>
+    </div>
+    <h1>Join Our <span>Team</span></h1>
+    <p>Be part of a dynamic, growing logistics company where your talent is valued, your growth is nurtured, and every day brings a new challenge.</p>
+  </div>
+</section>
+
+<!-- ACCENT STRIP -->
+<div class="accent-strip">
+  <div class="as-item">
+    <div class="as-icon">🌱</div>
+    <div class="as-text">
+      <span class="as-label">Culture</span>
+      <span class="as-value">Growth Focused</span>
+    </div>
+  </div>
+  <div class="as-item">
+    <div class="as-icon">⚖️</div>
+    <div class="as-text">
+      <span class="as-label">Work-Life</span>
+      <span class="as-value">Flexible Arrangements</span>
+    </div>
+  </div>
+  <div class="as-item">
+    <div class="as-icon">🤝</div>
+    <div class="as-text">
+      <span class="as-label">Programme</span>
+      <span class="as-value">Fair Employment</span>
+    </div>
+  </div>
+  <div class="as-item">
+    <div class="as-icon">🎖️</div>
+    <div class="as-text">
+      <span class="as-label">Certified</span>
+      <span class="as-value">NS Mark Employer</span>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO SECTION -->
+<section class="intro-section">
+  <div class="intro-grid">
+
+    <!-- Image side -->
+    <div class="fade-up" style="position:relative;padding-bottom:20px;padding-right:20px">
+      <div class="intro-img-wrap">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=900&q=80&auto=format&fit=crop"
+             alt="Team discussion at office"/>
+      </div>
+      <div class="intro-img-badge">
+        <span class="bn">1+</span>
+        <span class="bl">Year of<br>Excellence</span>
+      </div>
+    </div>
+
+    <!-- Text side -->
+    <div class="fade-up">
+      <p class="section-tag">Be Part of Our Team</p>
+      <h2 class="section-title">Build Your Career <span>With Us</span></h2>
+      <div class="divider"></div>
+      <p style="color: rgb(107, 114, 128);">We are looking for passionate and driven individuals to join our growing logistics family. If you thrive in a fast-paced environment and are eager to make a real impact in the freight forwarding industry, we want to hear from you.</p>
+      <p style="color: rgb(107, 114, 128);">Our organisation supports The Fair Employment and NS Mark Program, believing that through our commitment we can nurture future talents in various aspects. We practice Flexible Working Arrangements to help our employees maintain work-life balance.</p>
+      <p style="color: rgb(107, 114, 128);">Interested candidates may send in their resume directly to our recruitment team. Our friendly HR team will get back to you as soon as possible.</p>
+      <br>
+      <a href="mailto:recruitment@mail.com" class="email-cta">
+        <span>✉️</span> recruitment@mail.com
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ATTRIBUTES SECTION -->
+<section class="attr-section">
+  <div class="attr-inner">
+    <div class="attr-header fade-up">
+      <p class="section-tag">What We Look For</p>
+      <h2 class="section-title">People We're Looking <span>For</span></h2>
+      <div class="divider-center"></div>
+      <p class="desc">We seek individuals who bring energy, initiative, and commitment to everything they do. Here are the three core attributes we value in every team member.</p>
+    </div>
+    <div class="attr-grid">
+
+      <!-- People -->
+      <div class="attr-card fade-up">
+        <div class="attr-card-img">
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&q=80&auto=format&fit=crop"
+               alt="Team people"/>
+        </div>
+        <div class="attr-card-body">
+          <div class="attr-card-icon">👥</div>
+          <h3>People</h3>
+          <p>We value team members who are committed to their responsibilities, dependable in their delivery, and actively engaged in everything they take on.</p>
+          <div class="attr-tags">
+            <span class="attr-tag">Committed</span>
+            <span class="attr-tag">Responsible</span>
+            <span class="attr-tag">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Working Style -->
+      <div class="attr-card fade-up">
+        <div class="attr-card-img">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80&auto=format&fit=crop"
+               alt="Working style dynamic team"/>
+        </div>
+        <div class="attr-card-body">
+          <div class="attr-card-icon">⚡</div>
+          <h3>Working Style</h3>
+          <p>Our ideal team member brings a dynamic approach, takes initiative to solve problems proactively, and adapts smoothly to the fast-moving logistics environment.</p>
+          <div class="attr-tags">
+            <span class="attr-tag">Dynamic</span>
+            <span class="attr-tag">Initiative</span>
+            <span class="attr-tag">Accommodating</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Environment -->
+      <div class="attr-card fade-up">
+        <div class="attr-card-img">
+          <img src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=700&q=80&auto=format&fit=crop"
+               alt="Work environment office"/>
+        </div>
+        <div class="attr-card-body">
+          <div class="attr-card-icon">🏢</div>
+          <h3>Environment</h3>
+          <p>We build a workplace that is efficient, effective, and challenging — one that pushes everyone to continuously improve and reach their full professional potential.</p>
+          <div class="attr-tags">
+            <span class="attr-tag">Efficient</span>
+            <span class="attr-tag">Effective</span>
+            <span class="attr-tag">Challenging</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMMES SECTION -->
+<section class="prog-section">
+  <div class="fade-up">
+    <p class="section-tag">Our Commitments</p>
+    <h2 class="section-title">Programmes &amp; <span>Initiatives</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="prog-grid">
+
+    <div class="prog-card fade-up">
+      <div class="prog-card-img">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&q=80&auto=format&fit=crop"
+             alt="Fair Employment Programme"/>
+      </div>
+      <div class="prog-card-body">
+        <span class="prog-badge">Fair Employment</span>
+        <h3>Fair Employment Programme</h3>
+        <p>We are committed to fair and merit-based employment practices. All hiring, promotion, and training decisions are made based on skills and performance — free from discrimination of any kind.</p>
+      </div>
+    </div>
+
+    <div class="prog-card fade-up">
+      <div class="prog-card-img">
+        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=700&q=80&auto=format&fit=crop"
+             alt="NS Mark Programme"/>
+      </div>
+      <div class="prog-card-body">
+        <span class="prog-badge">NS Mark</span>
+        <h3>NS Mark Employer</h3>
+        <p>As an NS Mark certified employer, we fully support our NS employees in their national service obligations, ensuring they are not disadvantaged in their career progression.</p>
+      </div>
+    </div>
+
+    <div class="prog-card fade-up">
+      <div class="prog-card-img">
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=700&q=80&auto=format&fit=crop"
+             alt="Flexible Working Arrangements"/>
+      </div>
+      <div class="prog-card-body">
+        <span class="prog-badge">Work-Life Balance</span>
+        <h3>Flexible Working Arrangements</h3>
+        <p>We believe a balanced employee is a productive one. Our flexible working arrangements help our team manage personal commitments without compromising on professional performance.</p>
+      </div>
+    </div>
+
+    <div class="prog-card fade-up">
+      <div class="prog-card-img">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80&auto=format&fit=crop"
+             alt="Career Development Programme"/>
+      </div>
+      <div class="prog-card-body">
+        <span class="prog-badge">Career Growth</span>
+        <h3>Career Development Programme</h3>
+        <p>We invest in our people through on-the-job training, mentorship, and structured career pathways — helping every team member grow professionally within the logistics industry.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="apply-section" id="apply">
+  <div class="apply-inner">
+
+    <!-- Left visual + perks -->
+    <div class="fade-up">
+      <div class="apply-visual-img">
+        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop"
+             alt="Apply to join our logistics team"/>
+      </div>
+      <div class="apply-perks">
+        <div class="perk">
+          <div class="perk-img">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&q=80&auto=format&fit=crop" alt="Competitive Salary"/>
+          </div>
+          <div class="perk-body">
+            <h4>Competitive Salary</h4>
+            <p>Market-aligned compensation with performance-based increments.</p>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-img">
+            <img src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=120&q=80&auto=format&fit=crop" alt="Modern Workplace"/>
+          </div>
+          <div class="perk-body">
+            <h4>Modern Workplace</h4>
+            <p>Collaborative office environment with supportive colleagues.</p>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-img">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=120&q=80&auto=format&fit=crop" alt="Team Events"/>
+          </div>
+          <div class="perk-body">
+            <h4>Team Events &amp; Bonding</h4>
+            <p>Regular team activities and company events to celebrate milestones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application form -->
+    <div class="apply-form-box fade-up">
+      <h2>Come Work <span>With Us</span></h2>
+      <p class="form-sub">Fill in the form below or email your resume to <strong style="color:var(--primary)">recruitment@mail.com</strong></p>
+
+      <div class="form-row">
+        <div class="field">
+          <label>First Name *</label>
+          <input type="text" id="fname" placeholder="First name"/>
+        </div>
+        <div class="field">
+          <label>Last Name *</label>
+          <input type="text" id="lname" placeholder="Last name"/>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" id="femail" placeholder="you@email.com"/>
+      </div>
+
+      <div class="field">
+        <label>Phone Number *</label>
+        <input type="tel" id="fphone" placeholder="+91 XXXX XXXX"/>
+      </div>
+
+      <div class="field">
+        <label>Position Applying For</label>
+        <select id="fposition">
+          <option value="">Select a position…</option>
+          <option>Freight Operations Executive</option>
+          <option>Customer Service Executive</option>
+          <option>Sales Executive – Logistics</option>
+          <option>Warehouse Supervisor</option>
+          <option>Documentation Executive</option>
+          <option>Accounts / Finance Executive</option>
+          <option>General Application</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Cover Letter / Message</label>
+        <textarea id="fmsg" placeholder="Tell us about yourself and why you'd like to join our team…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Upload Resume *</label>
+        <div class="file-upload-wrap" id="fileWrap">
+          <input type="file" id="fresume" accept=".pdf,.doc,.docx" onchange="showFileName(this)"/>
+          <span class="fu-icon">📄</span>
+          <p><strong>Click to upload</strong> or drag &amp; drop<br>PDF, DOC, DOCX (max 5MB)</p>
+          <p class="file-name" id="fileName"></p>
+        </div>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="consent"/>
+        <label for="consent">I agree to the <a href="#">Privacy Policy</a> and consent to my information being used for recruitment purposes.</label>
+      </div>
+
+      <button class="btn-apply" onclick="handleApply()">
+        <span>📨</span> Submit Application
+      </button>
+      <div class="success-msg" id="successMsg">
+        ✅ Thank you for applying! We'll review your application and get in touch soon.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFE AT THE COMPANY -->
+<section class="life-section">
+  <div class="life-inner">
+    <div class="life-header fade-up">
+      <p class="section-tag">Work Culture</p>
+      <h2 class="section-title">Life at <span>Our Company</span></h2>
+      <div class="divider-center"></div>
+    </div>
+    <div class="life-gallery">
+      <div class="life-img big fade-up">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&auto=format&fit=crop" alt="Office team collaboration"/>
+      </div>
+      <div class="life-img sm fade-up">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=80&auto=format&fit=crop" alt="Team planning session"/>
+      </div>
+      <div class="life-img sm fade-up">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&q=80&auto=format&fit=crop" alt="Meeting discussion"/>
+      </div>
+      <div class="life-img sm fade-up">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=500&q=80&auto=format&fit=crop" alt="Colleagues laughing"/>
+      </div>
+      <div class="life-img sm fade-up">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&q=80&auto=format&fit=crop" alt="Productive workspace"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready to Start Your Journey With Us?</h2>
+    <p>Send your resume today and take the first step towards an exciting career in logistics and freight forwarding.</p>
+    <div class="cta-btns">
+      <a href="#apply" class="btn-accent">Apply Now</a>
+      <a href="contact.html" class="btn-outline-w">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand fcol">
+      <a href="index.html" class="flogo"> <span>Logistics</span></a>
+      <p>Your trusted freight and logistics partner across air, sea, and land. Moving your cargo reliably since 2026.</p>
+      <div class="footer-social">
+        <a href="#" class="fsoc" target="_blank">f</a>
+        <a href="#" class="fsoc" target="_blank">W</a>
+        <a href="mailto:info@mail.com" class="fsoc">✉</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="join-our-team.html">Join Our Team</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="service.html#air">Air Freight</a></li>
+        <li><a href="service.html#sea">Sea Freight</a></li>
+        <li><a href="service.html#land">Land Freight</a></li>
+        <li><a href="service.html#ware">Warehousing</a></li>
+        <li><a href="service.html#gen">General Freight</a></li>
+        <li><a href="service.html#haz">Hazardous Cargo</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact</h4>
+      <address>
+        Chennai, Tamil Nadu<br>India<br><br>
+        <a href="tel:+91xxxxxxxxxxx">+91 XXXXX XXXXX</a><br>
+        <a href="tel:+91xxxxxxxxxxx">Fax: +91 XXXXX XXXXX</a><br>
+        <a href="mailto:info@mail.com">info@mail.com</a><br>
+        <a href="mailto:recruitment@mail.com">recruitment@mail.com</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Logistics. All Rights Reserved.</span>
+    <span><a href="#">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="#">Sitemap</a></span>
+  </div>
+</footer>
+
+<!-- FLOATING ACTIONS -->
+<div class="floating-actions">
+  <a href="tel:+91xxxxxxxxxxx" class="fab fab-phone" title="Call Us">📞</a>
+  <a href="mailto:info@mail.com" class="fab fab-mail" title="Email Us">✉️</a>
+  <a href="https://api.whatsapp.com/send?phone=91xxxxxxxxxxx" target="_blank" class="fab fab-wa" title="WhatsApp">💬</a>
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* scroll animations */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+/* show selected file name */
+function showFileName(input){
+  const el = document.getElementById('fileName');
+  if(input.files && input.files[0]){
+    el.textContent = '📎 ' + input.files[0].name;
+    el.style.display = 'block';
+  }
+}
+
+/* form submit */
+function handleApply(){
+  const fname   = document.getElementById('fname').value.trim();
+  const lname   = document.getElementById('lname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const resume  = document.getElementById('fresume').files.length;
+  const consent = document.getElementById('consent').checked;
+
+  if(!fname || !lname || !email || !phone){
+    alert('Please fill in all required fields.'); return;
+  }
+  if(!/\S+@\S+\.\S+/.test(email)){
+    alert('Please enter a valid email address.'); return;
+  }
+  if(!resume){
+    alert('Please upload your resume.'); return;
+  }
+  if(!consent){
+    alert('Please agree to the Privacy Policy to proceed.'); return;
+  }
+
+  document.getElementById('successMsg').style.display = 'block';
+  document.getElementById('successMsg').scrollIntoView({behavior:'smooth', block:'center'});
+
+  
+
+  // Reset
+  ['fname','lname','femail','fphone','fmsg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fposition').selectedIndex = 0;
+  document.getElementById('fresume').value = '';
+  document.getElementById('fileName').style.display = 'none';
+  document.getElementById('consent').checked = false;
+}
+</script>
+</body>
+</html>

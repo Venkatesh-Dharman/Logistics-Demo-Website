@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FAQ – Logistics | Frequently Asked Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════ TOKENS ═══════════════════════════════ */
+:root {
+  --primary:  #00529B;
+  --primary2: #003d75;
+  --accent:   #FFCC00;
+  --acc2:     #e6b800;
+  --light:    #f0f5fb;
+  --white:    #ffffff;
+  --grey:     #6b7280;
+  --text:     #1e293b;
+  --border:   #cfdce8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+
+/* ═══ TOP BAR ═══ */
+.topbar{background:var(--primary);text-align:center;padding:6px 5%;font-size:.75rem;color:rgba(255,255,255,.85);letter-spacing:.3px}
+.topbar a{color:var(--accent);font-weight:600;text-decoration:none;margin-left:6px}
+.topbar a:hover{text-decoration:underline}
+
+/* ═══ NAV ═══ */
+nav{position:sticky;top:0;z-index:200;background:var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:62px;box-shadow:0 2px 16px rgba(0,82,155,.3)}
+.logo{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.3px;flex-shrink:0}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:.1rem;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a{display:flex;align-items:center;gap:3px;color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;font-weight:500;padding:.45rem .75rem;border-radius:5px;transition:color .2s,background .2s;white-space:nowrap}
+.nav-links>li>a:hover,.nav-links>li.active>a{color:var(--white);background:rgba(255,255,255,.12)}
+.arrow{font-size:.55rem;opacity:.7;transition:transform .2s}
+.nav-links>li:hover .arrow{transform:rotate(180deg)}
+.dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--white);border-radius:10px;min-width:200px;box-shadow:0 10px 36px rgba(0,82,155,.18);border:1px solid var(--border);overflow:hidden;animation:dropIn .2s ease;z-index:300}
+@keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-links>li:hover .dropdown{display:block}
+.dropdown a{display:block;padding:9px 15px;font-size:.8rem;color:var(--primary);text-decoration:none;border-bottom:1px solid var(--border);transition:background .15s,color .15s}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:var(--light);color:var(--primary);font-weight:600}
+.nav-cta{background:var(--accent);color:var(--primary);padding:.42rem 1.1rem;border-radius:6px;font-size:.8rem;font-weight:700;text-decoration:none;font-family:'Poppins',sans-serif;transition:background .2s,transform .15s;flex-shrink:0}
+.nav-cta:hover{background:var(--acc2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;height:340px;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,41,77,.92) 0%,rgba(0,41,77,.72) 55%,rgba(0,41,77,.38) 100%);z-index:1}
+.hero-body{position:relative;z-index:2;padding:0 5%;max-width:1160px;margin:0 auto;height:100%;display:flex;flex-direction:column;justify-content:center}
+.breadcrumb{font-size:.74rem;color:rgba(255,255,255,.52);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:rgba(255,255,255,.52);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:rgba(255,255,255,.3)}
+.hero-body h1{font-family:'Poppins',sans-serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:-.5px;line-height:1.1;animation:fadeUp .65s ease both}
+.hero-body h1 span{color:var(--accent)}
+.hero-sub{color:rgba(255,255,255,.7);font-size:.88rem;margin-top:12px;max-width:500px;line-height:1.72;animation:fadeUp .65s .12s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ═══ STATS STRIP ═══ */
+.stats-strip{background:var(--accent);display:flex;justify-content:center;flex-wrap:wrap}
+.sstat{padding:14px 44px;text-align:center;border-right:1px solid rgba(0,82,155,.18);flex:1;min-width:130px}
+.sstat:last-child{border-right:none}
+.sstat-num{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1}
+.sstat-lbl{font-size:.67rem;color:rgba(0,82,155,.8);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+/* ═══ COMMON ═══ */
+.section-tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px;font-family:'Poppins',sans-serif}
+.section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.3rem,2.2vw,1.85rem);font-weight:700;color:var(--primary);margin-bottom:14px;line-height:1.2}
+.section-title span{color:var(--accent)}
+.divider{width:40px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:20px}
+.divider-center{width:40px;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 18px}
+
+/* ═══ FAQ SEARCH ═══ */
+.faq-search-section{background:var(--light);padding:42px 5%}
+.faq-search-inner{max-width:680px;margin:0 auto;text-align:center}
+.faq-search-inner p{color:var(--grey);font-size:.88rem;margin-bottom:20px;line-height:1.7}
+.search-box{display:flex;gap:0;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,82,155,.12);border:1.5px solid var(--border)}
+.search-box input{flex:1;padding:13px 18px;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--text);border:none;outline:none;background:var(--white)}
+.search-box button{background:var(--primary);color:var(--white);border:none;padding:0 22px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .2s;white-space:nowrap}
+.search-box button:hover{background:var(--primary2)}
+
+/* ═══ FAQ MAIN ═══ */
+.faq-main{max-width:1160px;margin:0 auto;padding:64px 5%;display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+
+/* ═══ SIDEBAR CATEGORIES ═══ */
+.faq-sidebar{position:sticky;top:80px}
+.faq-sidebar h3{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--primary);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--accent)}
+.cat-list{list-style:none}
+.cat-list li{margin-bottom:4px}
+.cat-list a{display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:8px;text-decoration:none;color:var(--grey);font-size:.82rem;font-weight:500;transition:background .18s,color .18s;border:1px solid transparent}
+.cat-list a .cat-icon{font-size:.95rem;width:20px;text-align:center;flex-shrink:0}
+.cat-list a .cat-count{margin-left:auto;background:var(--light);color:var(--primary);font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:10px;font-family:'Poppins',sans-serif}
+.cat-list a:hover,.cat-list a.active{background:var(--primary);color:var(--white);border-color:var(--primary)}
+.cat-list a:hover .cat-count,.cat-list a.active .cat-count{background:rgba(255,255,255,.2);color:var(--white)}
+.sidebar-cta{margin-top:24px;background:linear-gradient(135deg,var(--primary),var(--primary2));border-radius:12px;padding:20px;color:var(--white);text-align:center}
+.sidebar-cta h4{font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:6px}
+.sidebar-cta p{font-size:.75rem;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:14px}
+.sidebar-cta a{display:block;background:var(--accent);color:var(--primary);font-family:'Poppins',sans-serif;font-weight:700;font-size:.78rem;padding:9px 14px;border-radius:7px;text-decoration:none;transition:background .2s}
+.sidebar-cta a:hover{background:var(--acc2)}
+
+/* ═══ FAQ CONTENT ═══ */
+.faq-content{}
+.faq-group{margin-bottom:44px}
+.faq-group-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.faq-group-header .grp-icon{width:36px;height:36px;border-radius:9px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.faq-group-header h2{font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:var(--primary)}
+.faq-group-header .grp-badge{background:var(--accent);color:var(--primary);font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'Poppins',sans-serif;margin-left:auto;flex-shrink:0}
+
+/* ═══ ACCORDION ═══ */
+.accordion{border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,82,155,.05)}
+.acc-item{border-bottom:1px solid var(--border)}
+.acc-item:last-child{border-bottom:none}
+.acc-trigger{width:100%;display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--white);border:none;cursor:pointer;text-align:left;font-family:'Inter',sans-serif;font-size:.875rem;font-weight:600;color:var(--text);transition:background .18s;outline:none}
+.acc-trigger:hover{background:var(--light)}
+.acc-trigger.open{background:var(--light);color:var(--primary)}
+.acc-q-num{font-family:'Poppins',sans-serif;font-size:.68rem;font-weight:800;color:var(--primary);background:var(--light);border:1.5px solid var(--border);width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s,color .18s}
+.acc-trigger.open .acc-q-num,.acc-trigger:hover .acc-q-num{background:var(--accent);color:var(--primary);border-color:var(--accent)}
+.acc-q-text{flex:1;line-height:1.45}
+.acc-chevron{font-size:.7rem;color:var(--grey);flex-shrink:0;transition:transform .28s ease,color .18s}
+.acc-trigger.open .acc-chevron{transform:rotate(180deg);color:var(--primary)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .36s ease,padding .28s ease}
+.acc-body.open{max-height:600px}
+.acc-inner{padding:0 20px 18px 56px;font-size:.84rem;color:var(--grey);line-height:1.8}
+.acc-inner p{margin-bottom:10px}
+.acc-inner p:last-child{margin-bottom:0}
+.acc-inner ul{margin:8px 0 8px 18px}
+.acc-inner ul li{margin-bottom:5px}
+.acc-inner a{color:var(--primary);font-weight:600;text-decoration:none}
+.acc-inner a:hover{text-decoration:underline}
+.acc-tag{display:inline-block;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px;margin-bottom:10px;font-family:'Poppins',sans-serif}
+.acc-tag.popular{background:#fff3cd;color:#856404}
+.acc-tag.important{background:#cfe2ff;color:#084298}
+
+/* ═══ HELPFUL SECTION ═══ */
+.helpful-section{background:var(--light);padding:64px 5%}
+.helpful-inner{max-width:1160px;margin:0 auto}
+.helpful-header{text-align:center;margin-bottom:40px}
+.helpful-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.helpful-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:26px 22px;text-align:center;transition:box-shadow .25s,transform .25s;text-decoration:none;color:inherit;display:block}
+.helpful-card:hover{box-shadow:0 12px 34px rgba(0,82,155,.1);transform:translateY(-4px)}
+.helpful-card .hc-img{width:100%;height:140px;object-fit:cover;border-radius:9px;margin-bottom:16px;display:block}
+.helpful-card .hc-icon{width:52px;height:52px;border-radius:13px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 16px}
+.helpful-card h3{font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:700;color:var(--primary);margin-bottom:8px}
+.helpful-card p{font-size:.8rem;color:var(--grey);line-height:1.65;margin-bottom:14px}
+.helpful-card .hc-link{font-size:.75rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;display:inline-flex;align-items:center;gap:5px;font-family:'Poppins',sans-serif}
+
+/* ═══ CTA BANNER ═══ */
+.cta-banner{background:var(--primary);position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;right:-80px;top:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,204,0,.07)}
+.cta-banner::after{content:'';position:absolute;left:-60px;bottom:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cta-inner{max-width:1160px;margin:0 auto;padding:60px 5%;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;position:relative;z-index:1}
+.cta-inner h2{font-family:'Poppins',sans-serif;font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:800;color:var(--white);margin-bottom:10px}
+.cta-inner h2 span{color:var(--accent)}
+.cta-inner p{color:rgba(255,255,255,.7);font-size:.86rem;line-height:1.7}
+.cta-btns{display:flex;flex-direction:column;gap:10px;align-items:flex-end;flex-shrink:0}
+.btn-cta-primary{background:var(--accent);color:var(--primary);padding:12px 28px;border-radius:8px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:background .2s,transform .15s;white-space:nowrap}
+.btn-cta-primary:hover{background:var(--acc2);transform:translateY(-2px)}
+.btn-cta-outline{border:2px solid rgba(255,255,255,.3);color:var(--white);padding:10px 28px;border-radius:8px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.84rem;text-decoration:none;transition:all .2s;white-space:nowrap;text-align:center}
+.btn-cta-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--primary);color:rgba(255,255,255,.65);padding:52px 5% 24px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;max-width:1160px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand .flogo{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--white);text-decoration:none;display:block;margin-bottom:12px}
+.footer-brand .flogo span{color:var(--accent)}
+.footer-brand p{font-size:.78rem;line-height:1.75;max-width:240px}
+.footer-social{display:flex;gap:8px;margin-top:16px}
+.fsoc{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.8rem;transition:background .2s;color:var(--white)}
+.fsoc:hover{background:var(--accent);color:var(--primary)}
+.fcol h4{font-family:'Poppins',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--white);margin-bottom:14px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:.78rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--accent)}
+.fcol address{font-style:normal;font-size:.78rem;line-height:1.85}
+.footer-bottom{max-width:1160px;margin:20px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:.72rem;flex-wrap:wrap;gap:10px}
+.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ═══ FLOATING ═══ */
+.floating-actions{position:fixed;right:18px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:300}
+.fab{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transition:transform .2s}
+.fab:hover{transform:scale(1.12)}
+.fab-phone{background:var(--primary);color:var(--white)}
+.fab-mail{background:var(--accent);color:var(--primary)}
+.fab-wa{background:#25d366;color:var(--white)}
+
+/* ═══ MOBILE MENU ═══ */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:1000;background:var(--primary);padding:72px 5% 36px;flex-direction:column;gap:4px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mm-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer}
+.mobile-menu a{color:rgba(255,255,255,.85);text-decoration:none;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:600;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-menu a:hover{color:var(--accent)}
+.mm-sub{font-family:'Inter',sans-serif!important;font-size:.82rem!important;font-weight:400!important;padding-left:14px!important;color:rgba(255,255,255,.55)!important}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1060px){.nav-links{display:none}.hamburger{display:flex}.faq-main{grid-template-columns:1fr}.faq-sidebar{position:static}.helpful-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.cta-inner{grid-template-columns:1fr}.cta-btns{flex-direction:row;align-items:flex-start}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.footer-grid{grid-template-columns:1fr}.page-hero{height:260px}.helpful-grid{grid-template-columns:1fr}.cta-btns{flex-direction:column;align-items:stretch}.stats-strip{flex-direction:column}.sstat{border-right:none;border-bottom:1px solid rgba(0,82,155,.15)}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Your Trusted Logistics Partner — Serving India &amp; the World Since 2026. <a href="contact.html">Get a Quote →</a></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="logo"> <span>Logistics</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li>
+      <a href="service.html">Services <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="service.html#air">✈️ Air Freight</a>
+        <a href="service.html#sea">🚢 Sea Freight</a>
+        <a href="service.html#land">🚛 Land Freight</a>
+        <a href="service.html#ware">🏭 Warehousing</a>
+        <a href="service.html#gen">📦 General Freight</a>
+        <a href="service.html#haz">⚠️ Hazardous Cargo</a>
+      </div>
+    </li>
+    <li><a href="resource.html">Resources</a></li>
+    <li><a href="join-our-team.html">Join Our Team</a></li>
+    <li><a href="project.html">Projects</a></li>
+    <li class="active"><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu()">✕</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="service.html">Services</a>
+  <a href="service.html#air" class="mm-sub">✈️ Air Freight</a>
+  <a href="service.html#sea" class="mm-sub">🚢 Sea Freight</a>
+  <a href="service.html#land" class="mm-sub">🚛 Land Freight</a>
+  <a href="service.html#ware" class="mm-sub">🏭 Warehousing</a>
+  <a href="service.html#gen" class="mm-sub">📦 General Freight</a>
+  <a href="service.html#haz" class="mm-sub">⚠️ Hazardous Cargo</a>
+  <a href="resource.html">Resources</a>
+  <a href="join-our-team.html">Join Our Team</a>
+  <a href="project.html">Projects</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- HERO – real image background -->
+<section class="hero">
+  <img class="hero-img"
+       src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1600&q=80&auto=format&fit=crop"
+       alt="Logistics FAQ"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span style="color:rgba(255,255,255,.75)">FAQ</span>
+    </div>
+    <h1>Frequently Asked <span>Questions</span></h1>
+    <p class="hero-sub">Everything you need to know about our freight and logistics services. Can't find an answer? Our team is standing by to help.</p>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="sstat"><div class="sstat-num">50+</div><div class="sstat-lbl">FAQ Answered</div></div>
+  <div class="sstat"><div class="sstat-num">6</div><div class="sstat-lbl">Service Categories</div></div>
+  <div class="sstat"><div class="sstat-num">24/7</div><div class="sstat-lbl">Standby Support</div></div>
+  <div class="sstat"><div class="sstat-num">Global</div><div class="sstat-lbl">Network Reach</div></div>
+  <div class="sstat"><div class="sstat-num">SME</div><div class="sstat-lbl">Cost Optimised</div></div>
+</div>
+
+<!-- SEARCH -->
+<section class="faq-search-section">
+  <div class="faq-search-inner fade-up">
+    <p class="section-tag" style="letter-spacing:2.5px;">Search</p>
+    <h2 class="section-title" style="text-align:center;">Find Your <span>Answer</span></h2>
+    <div class="divider-center"></div>
+    <p>Type a keyword to find relevant questions about our logistics, freight, and shipping services.</p>
+    <div class="search-box" style="margin-top:20px;">
+      <input type="text" id="faqSearch" placeholder="e.g. air freight, tracking, customs..." oninput="filterFAQ()"/>
+      <button onclick="filterFAQ()">🔍 Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ MAIN -->
+<div class="faq-main" id="faqMain">
+
+  <!-- SIDEBAR -->
+  <aside class="faq-sidebar fade-up">
+    <h3>Categories</h3>
+    <ul class="cat-list" id="catList">
+      <li><a href="#" class="active" data-cat="all" onclick="filterCat('all',this)"><span class="cat-icon">📋</span>All Questions<span class="cat-count">30</span></a></li>
+      <li><a href="#" data-cat="general" onclick="filterCat('general',this)"><span class="cat-icon">ℹ️</span>General<span class="cat-count">6</span></a></li>
+      <li><a href="#" data-cat="air" onclick="filterCat('air',this)"><span class="cat-icon">✈️</span>Air Freight<span class="cat-count">5</span></a></li>
+      <li><a href="#" data-cat="sea" onclick="filterCat('sea',this)"><span class="cat-icon">🚢</span>Sea Freight<span class="cat-count">5</span></a></li>
+      <li><a href="#" data-cat="land" onclick="filterCat('land',this)"><span class="cat-icon">🚛</span>Land Freight<span class="cat-count">4</span></a></li>
+      <li><a href="#" data-cat="warehouse" onclick="filterCat('warehouse',this)"><span class="cat-icon">🏭</span>Warehousing<span class="cat-count">5</span></a></li>
+      <li><a href="#" data-cat="customs" onclick="filterCat('customs',this)"><span class="cat-icon">🛃</span>Customs &amp; Docs<span class="cat-count">5</span></a></li>
+    </ul>
+
+    <div class="sidebar-cta">
+      <h4>Still need help?</h4>
+      <p>Our logistics experts are available 24/7 to assist you with any query.</p>
+      <a href="contact.html">📞 Contact Us Now</a>
+    </div>
+  </aside>
+
+  <!-- FAQ CONTENT -->
+  <div class="faq-content" id="faqContent">
+
+    <!-- ── GENERAL ── -->
+    <div class="faq-group fade-up" data-group="general">
+      <div class="faq-group-header">
+        <div class="grp-icon">ℹ️</div>
+        <h2>General Information</h2>
+        <span class="grp-badge">6 Questions</span>
+      </div>
+      <div class="accordion">
+
+        <div class="acc-item" data-cat="general" data-keywords="logistics service company about">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">1</span>
+            <span class="acc-q-text">What services does Logistics offer?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag popular">Popular</span>
+              <p>Logistics offers a comprehensive range of freight and supply chain services including:</p>
+              <ul>
+                <li><strong>Air Freight</strong> – time-critical global shipments</li>
+                <li><strong>Sea Freight</strong> – FCL &amp; LCL container solutions</li>
+                <li><strong>Land Freight</strong> – domestic and cross-border trucking</li>
+                <li><strong>Warehousing</strong> – secure storage and distribution</li>
+                <li><strong>General Freight</strong> – standard cargo handling</li>
+                <li><strong>Hazardous Cargo</strong> – certified DG transportation</li>
+              </ul>
+              <p>We are a one-stop logistics partner tailored especially for SME businesses.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="general" data-keywords="quote price cost estimate">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">2</span>
+            <span class="acc-q-text">How do I get a freight quote?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>You can request a freight quote by visiting our <a href="contact.html">Contact Us</a> page and filling in the inquiry form. Please provide the origin, destination, cargo type, weight, and dimensions for an accurate estimate.</p>
+              <p>Our team will respond within 1 business day with a tailored quotation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="general" data-keywords="track shipment status order">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">3</span>
+            <span class="acc-q-text">Can I track my shipment in real time?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag popular">Popular</span>
+              <p>Yes. Once your shipment is booked, you will receive a tracking reference number. You can use this to monitor your cargo status at any time by contacting our operations team or through our shipment update notifications.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="general" data-keywords="experience established years since">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">4</span>
+            <span class="acc-q-text">When was Logistics established?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Logistics was established in 2026 and has since built a strong reputation as a credible one-stop logistic service center catering to both SME and enterprise clients across India and globally.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="general" data-keywords="contact support hours availability">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">5</span>
+            <span class="acc-q-text">What are your business hours and support availability?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Our operations team is available <strong>Monday to Friday, 9:00 AM – 6:00 PM IST</strong>. For urgent shipment matters, we provide <strong>24/7 standby support</strong> through our emergency contact line.</p>
+              <p>You can also reach us at <a href="mailto:info@mail.com">info@mail.com</a> anytime.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="general" data-keywords="sme small business enterprise client">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">6</span>
+            <span class="acc-q-text">Do you serve small and medium businesses (SMEs)?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Absolutely. Our services are specifically designed to be cost-optimised for SME clients. We believe every business deserves access to professional logistics without enterprise-sized budgets. Our team works with you to find efficient, affordable solutions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AIR FREIGHT ── -->
+    <div class="faq-group fade-up" data-group="air">
+      <div class="faq-group-header">
+        <div class="grp-icon">✈️</div>
+        <h2>Air Freight</h2>
+        <span class="grp-badge">5 Questions</span>
+      </div>
+      <div class="accordion">
+
+        <div class="acc-item" data-cat="air" data-keywords="air freight time fast urgent express">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">1</span>
+            <span class="acc-q-text">How long does air freight take from India to major destinations?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag popular">Popular</span>
+              <p>Transit times vary by destination, but typical air freight from India takes:</p>
+              <ul>
+                <li>Southeast Asia: 1–2 business days</li>
+                <li>Middle East: 1–3 business days</li>
+                <li>Europe: 2–4 business days</li>
+                <li>Americas: 3–5 business days</li>
+              </ul>
+              <p>Express services are available for even faster delivery where required.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="air" data-keywords="air freight weight limit cargo size">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">2</span>
+            <span class="acc-q-text">Is there a minimum or maximum weight for air freight?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Air freight is billed on chargeable weight (actual weight vs volumetric weight — whichever is greater). There is no strict minimum for general air cargo. For oversized or heavy cargo, we can arrange charter solutions on request.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="air" data-keywords="air freight packaging requirement">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">3</span>
+            <span class="acc-q-text">What are the packaging requirements for air shipments?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>All air cargo must be securely packed to withstand handling and pressure changes. Common requirements include:</p>
+              <ul>
+                <li>Strong outer cartons or pallets</li>
+                <li>Adequate cushioning for fragile items</li>
+                <li>Clear labelling with consignee details and weight</li>
+                <li>IATA compliance for dangerous goods</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="air" data-keywords="air freight perishable food cold chain temperature">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">4</span>
+            <span class="acc-q-text">Can you handle perishable or temperature-sensitive goods by air?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Yes. We have experience handling perishable goods, pharmaceuticals, and temperature-controlled cargo. These shipments are booked on suitable aircraft with temperature-controlled handling and documented cold-chain compliance.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="air" data-keywords="air freight cost expensive cheaper sea">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">5</span>
+            <span class="acc-q-text">When should I choose air freight over sea freight?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Choose air freight when:</p>
+              <ul>
+                <li>Your shipment is time-sensitive or urgent</li>
+                <li>The cargo is high-value with low volume/weight</li>
+                <li>Market demand requires immediate replenishment</li>
+              </ul>
+              <p>Sea freight is more cost-effective for large volume, non-urgent cargo. Our team can advise the best mode based on your specific requirements.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SEA FREIGHT ── -->
+    <div class="faq-group fade-up" data-group="sea">
+      <div class="faq-group-header">
+        <div class="grp-icon">🚢</div>
+        <h2>Sea Freight</h2>
+        <span class="grp-badge">5 Questions</span>
+      </div>
+      <div class="accordion">
+
+        <div class="acc-item" data-cat="sea" data-keywords="fcl lcl container full load less">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">1</span>
+            <span class="acc-q-text">What is the difference between FCL and LCL?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag popular">Popular</span>
+              <p><strong>FCL (Full Container Load)</strong> means your cargo occupies an entire shipping container. It's ideal for large shipments and provides faster transit and higher security.</p>
+              <p><strong>LCL (Less than Container Load)</strong> means your cargo shares space with other shippers' goods. It's cost-effective for smaller shipments but may have longer transit times due to consolidation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="sea" data-keywords="sea freight transit time days weeks">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">2</span>
+            <span class="acc-q-text">How long does sea freight take?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Sea freight transit times from India typically range:</p>
+              <ul>
+                <li>Southeast Asia: 5–12 days</li>
+                <li>Middle East: 7–15 days</li>
+                <li>Europe: 18–30 days</li>
+                <li>Americas: 25–40 days</li>
+              </ul>
+              <p>Actual transit times depend on the port of loading, port of discharge, carrier, and any transshipment ports.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="sea" data-keywords="nvocc vessel shipping line carrier">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">3</span>
+            <span class="acc-q-text">What is NVOCC and do you provide this service?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>NVOCC stands for <strong>Non-Vessel Operating Common Carrier</strong>. We act as a carrier to our clients while booking space on actual shipping lines. This allows us to offer competitive rates, flexible scheduling, and consolidated shipments without operating our own vessels.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="sea" data-keywords="sea freight port india chennai mumbai">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">4</span>
+            <span class="acc-q-text">Which Indian ports do you operate from?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>We primarily operate from <strong>Chennai Port</strong> and <strong>Ennore Port</strong>, with connections to other major Indian ports including Mumbai (JNPT), Mundra, Hazira, Kolkata, and Cochin. Contact us to confirm availability from your nearest port.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="sea" data-keywords="sea freight dangerous goods hazardous imdg">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">5</span>
+            <span class="acc-q-text">Can I ship dangerous goods by sea?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag important">Important</span>
+              <p>Yes, but dangerous goods must comply with <strong>IMDG (International Maritime Dangerous Goods)</strong> regulations. Proper classification, packing, labelling, and documentation (MSDS, DG declaration) are mandatory. Our team will guide you through the compliance process.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LAND FREIGHT ── -->
+    <div class="faq-group fade-up" data-group="land">
+      <div class="faq-group-header">
+        <div class="grp-icon">🚛</div>
+        <h2>Land Freight</h2>
+        <span class="grp-badge">4 Questions</span>
+      </div>
+      <div class="accordion">
+
+        <div class="acc-item" data-cat="land" data-keywords="land freight domestic india transport truck">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">1</span>
+            <span class="acc-q-text">What areas do your land freight services cover?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Our land freight services cover pan-India delivery from Chennai, with connections to all major industrial and commercial cities. We also provide cross-border transport to neighbouring countries where applicable.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="land" data-keywords="truck type vehicle flat bed container trailer">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">2</span>
+            <span class="acc-q-text">What types of trucks and vehicles are available?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>We can arrange a variety of vehicle types based on your cargo requirements, including:</p>
+              <ul>
+                <li>Standard container trucks (20ft / 40ft)</li>
+                <li>Flatbed trailers for oversized cargo</li>
+                <li>Refrigerated trucks for temperature-sensitive goods</li>
+                <li>Mini trucks and vans for smaller LTL shipments</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="land" data-keywords="land freight last mile delivery warehouse door">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">3</span>
+            <span class="acc-q-text">Do you offer door-to-door land delivery?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Yes. We provide <strong>door-to-door land freight</strong> services, handling pickup from the shipper's premises and delivery directly to the consignee's location. This includes port-to-door and warehouse-to-warehouse movements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="land" data-keywords="land freight insurance cargo liability">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">4</span>
+            <span class="acc-q-text">Is my cargo insured during land transportation?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Standard carrier liability applies to all land shipments. However, we strongly recommend taking out <strong>marine/cargo insurance</strong> for full protection against loss, damage, or theft. Our team can arrange suitable coverage at competitive rates.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── WAREHOUSING ── -->
+    <div class="faq-group fade-up" data-group="warehouse">
+      <div class="faq-group-header">
+        <div class="grp-icon">🏭</div>
+        <h2>Warehousing &amp; Distribution</h2>
+        <span class="grp-badge">5 Questions</span>
+      </div>
+      <div class="accordion">
+
+        <div class="acc-item" data-cat="warehouse" data-keywords="warehouse storage secure facility location">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">1</span>
+            <span class="acc-q-text">Where are your warehouse facilities located?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Our primary warehousing facility is located in <strong>Chennai, Tamil Nadu</strong>, strategically positioned near Chennai Port and major logistics corridors. We can also arrange partner warehouse access in other key cities across India.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="warehouse" data-keywords="warehouse minimum storage period duration contract">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">2</span>
+            <span class="acc-q-text">Is there a minimum storage period?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>We offer flexible warehousing arrangements with no strict long-term commitment required for standard storage. Short-term, medium-term, and long-term contracts are all available. Pricing is based on volume and duration — contact us for a tailored warehouse quote.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="warehouse" data-keywords="warehouse value added service packing labelling">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">3</span>
+            <span class="acc-q-text">Do you offer value-added services like packing and labelling?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Yes. Our warehousing operations include a range of value-added services:</p>
+              <ul>
+                <li>Cargo inspection and quality check</li>
+                <li>Re-packing and palletising</li>
+                <li>Labelling and barcode application</li>
+                <li>Kitting and assembly</li>
+                <li>Inventory management and reporting</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="warehouse" data-keywords="warehouse distribution last mile delivery">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">4</span>
+            <span class="acc-q-text">Can you manage distribution from the warehouse?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Absolutely. We offer <strong>wide-area distribution</strong> directly from our warehouse. This includes scheduled deliveries to retailers, distributors, or end customers across Tamil Nadu and other states. We handle last-mile coordination so you can focus on your business.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="warehouse" data-keywords="warehouse security cctv safety goods">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">5</span>
+            <span class="acc-q-text">How is security managed in your warehouse?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Our warehouse facilities are equipped with <strong>24-hour CCTV surveillance</strong>, controlled access entry, fire suppression systems, and trained security personnel. All cargo is logged on entry and exit with supporting documentation to ensure full chain-of-custody.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CUSTOMS ── -->
+    <div class="faq-group fade-up" data-group="customs">
+      <div class="faq-group-header">
+        <div class="grp-icon">🛃</div>
+        <h2>Customs &amp; Documentation</h2>
+        <span class="grp-badge">5 Questions</span>
+      </div>
+      <div class="accordion">
+
+        <div class="acc-item" data-cat="customs" data-keywords="customs clearance import export documents">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">1</span>
+            <span class="acc-q-text">Do you handle customs clearance?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag popular">Popular</span>
+              <p>Yes. We provide <strong>customs brokerage and clearance services</strong> for both imports and exports at all major Indian ports and airports. Our licensed customs team ensures accurate documentation and timely release of cargo.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="customs" data-keywords="documents required export import shipment">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">2</span>
+            <span class="acc-q-text">What documents are required for an export shipment?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Common documents required for export include:</p>
+              <ul>
+                <li>Commercial Invoice</li>
+                <li>Packing List</li>
+                <li>Bill of Lading or Airway Bill</li>
+                <li>Certificate of Origin (if required)</li>
+                <li>Shipping Bill (filed with Indian Customs)</li>
+                <li>Letter of Credit (if applicable)</li>
+                <li>MSDS / DG Declaration (for hazardous goods)</li>
+              </ul>
+              <p>Requirements vary by destination country and commodity — our team will guide you through the full checklist.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="customs" data-keywords="duties tax tariff import customs fee">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">3</span>
+            <span class="acc-q-text">Who is responsible for import duties and taxes?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <span class="acc-tag important">Important</span>
+              <p>Import duties and taxes are the responsibility of the <strong>importer/consignee</strong> in the destination country. Under DDP (Delivered Duty Paid) terms, the exporter assumes responsibility. We recommend discussing Incoterms clearly before booking to avoid unexpected charges.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="customs" data-keywords="hs code classification harmonised tariff">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">4</span>
+            <span class="acc-q-text">What is an HS Code and do I need one?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>An <strong>HS (Harmonised System) Code</strong> is a standardised numerical code used globally to classify traded goods. It determines applicable duties, taxes, and trade regulations. Yes, you need the correct HS Code for every international shipment. Our customs team can assist with classification if needed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-cat="customs" data-keywords="restricted prohibited goods cannot ship">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-q-num">5</span>
+            <span class="acc-q-text">Are there items you cannot ship?</span>
+            <span class="acc-chevron">▼</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Yes. Certain goods are prohibited or restricted from international shipment, including:</p>
+              <ul>
+                <li>Illegal narcotics or controlled substances</li>
+                <li>Counterfeit or pirated goods</li>
+                <li>Certain wildlife products (CITES-restricted)</li>
+                <li>Unsanctioned weapons or ammunition</li>
+                <li>Some agricultural products without permits</li>
+              </ul>
+              <p>Please consult our team before shipping any item you are unsure about. We will advise on compliance and feasibility.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /faq-content -->
+</div><!-- /faq-main -->
+
+<!-- NO RESULTS MESSAGE -->
+<div id="noResults" style="display:none;text-align:center;padding:48px 5%;color:var(--grey);">
+  <div style="font-size:2.5rem;margin-bottom:12px;">🔍</div>
+  <h3 style="font-family:'Poppins',sans-serif;color:var(--primary);margin-bottom:8px;">No results found</h3>
+  <p style="font-size:.86rem;">Try a different search term or <a href="contact.html" style="color:var(--primary);font-weight:700;">contact our team</a> directly.</p>
+</div>
+
+<!-- HELPFUL RESOURCES -->
+<section class="helpful-section">
+  <div class="helpful-inner">
+    <div class="helpful-header fade-up">
+      <p class="section-tag">Resources</p>
+      <h2 class="section-title">Helpful <span>Resources</span></h2>
+      <div class="divider-center"></div>
+      <p style="color:var(--grey);font-size:.86rem;max-width:480px;margin:0 auto;line-height:1.7;">Explore our guides, service pages, and contact options to get the support you need.</p>
+    </div>
+    <div class="helpful-grid" style="margin-top:36px;">
+
+      <a class="helpful-card fade-up" href="service.html">
+        <img class="hc-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80&auto=format&fit=crop" alt="Our Services"/>
+        <h3>Explore Our Services</h3>
+        <p>Browse the full range of freight and logistics solutions we offer — air, sea, land, and warehousing.</p>
+        <span class="hc-link">View Services →</span>
+      </a>
+
+      <a class="helpful-card fade-up" href="about.html">
+        <img class="hc-img" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80&auto=format&fit=crop" alt="About Logistics"/>
+        <h3>About Logistics</h3>
+        <p>Learn more about who we are, our mission, our vision, and the team behind our one-stop logistics platform.</p>
+        <span class="hc-link">About Us →</span>
+      </a>
+
+      <a class="helpful-card fade-up" href="contact.html">
+        <img class="hc-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80&auto=format&fit=crop" alt="Contact Us"/>
+        <h3>Contact Our Team</h3>
+        <p>Can't find your answer? Reach out to our logistics experts directly by email, phone, or WhatsApp.</p>
+        <span class="hc-link">Get in Touch →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-inner">
+    <div>
+      <h2>Still Have <span>Questions?</span></h2>
+      <p>Our logistics specialists are ready to help. Get a free consultation and customised freight quote for your specific needs.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn-cta-primary">📩 Get a Free Quote</a>
+      <a href="tel:+91xxxxxxxxxxx" class="btn-cta-outline">📞 Call Us Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand fcol">
+      <a href="index.html" class="flogo"><span>Logistics</span></a>
+      <p>Your trusted freight and logistics partner across air, sea, and land. Moving your cargo reliably across the globe since 2026.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" class="fsoc" target="_blank">f</a>
+        <a href="#" class="fsoc" target="_blank">W</a>
+        <a href="mailto:info@mail.com" class="fsoc">✉</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="join-our-team.html">Join Our Team</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="service.html#air">Air Freight</a></li>
+        <li><a href="service.html#sea">Sea Freight</a></li>
+        <li><a href="service.html#land">Land Freight</a></li>
+        <li><a href="service.html#ware">Warehousing</a></li>
+        <li><a href="service.html#gen">General Freight</a></li>
+        <li><a href="service.html#haz">Hazardous Cargo</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact Us</h4>
+      <address>
+        Chennai, Tamil Nadu<br>
+        India<br><br>
+        <a href="tel:+91xxxxxxxxxxx">+91 XXXXX XXXXX</a><br>
+        <a href="tel:+91xxxxxxxxxxx">Fax: +91 XXXXX XXXXX</a><br>
+        <a href="mailto:info@mail.com">info@mail.com</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Logistics. All Rights Reserved.</span>
+    <span>
+      <a href="#">Terms &amp; Conditions</a> &nbsp;|&nbsp;
+      <a href="#">Sitemap</a>
+    </span>
+  </div>
+</footer>
+
+<!-- FLOATING ACTIONS -->
+<div class="floating-actions">
+  <a href="tel:+91xxxxxxxxxxx" class="fab fab-phone" title="Call Us">📞</a>
+  <a href="mailto:info@mail.com" class="fab fab-mail" title="Email Us">✉️</a>
+  <a href="https://api.whatsapp.com/send?phone=91xxxxxxxxxxx" target="_blank" class="fab fab-wa" title="WhatsApp">💬</a>
+</div>
+
+<script>
+/* ── MOBILE MENU ── */
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+/* ── ACCORDION ── */
+function toggleAcc(btn){
+  const isOpen = btn.classList.contains('open');
+  // Close all in same accordion
+  const parent = btn.closest('.accordion');
+  parent.querySelectorAll('.acc-trigger').forEach(t=>{
+    t.classList.remove('open');
+    t.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){
+    btn.classList.add('open');
+    btn.nextElementSibling.classList.add('open');
+  }
+}
+
+/* ── CATEGORY FILTER ── */
+function filterCat(cat, el){
+  event.preventDefault();
+  document.querySelectorAll('.cat-list a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+
+  const groups = document.querySelectorAll('.faq-group');
+  const items  = document.querySelectorAll('.acc-item');
+
+  if(cat === 'all'){
+    groups.forEach(g=>g.style.display='');
+    items.forEach(i=>i.style.display='');
+  } else {
+    groups.forEach(g=>{
+      const hasMatch = [...g.querySelectorAll('.acc-item')].some(i=>i.dataset.cat===cat);
+      g.style.display = hasMatch ? '' : 'none';
+    });
+    items.forEach(i=>{
+      i.style.display = (i.dataset.cat===cat) ? '' : 'none';
+    });
+  }
+  document.getElementById('noResults').style.display='none';
+  document.getElementById('faqMain').style.display='grid';
+}
+
+/* ── SEARCH FILTER ── */
+function filterFAQ(){
+  const query = document.getElementById('faqSearch').value.toLowerCase().trim();
+  const items = document.querySelectorAll('.acc-item');
+  const groups = document.querySelectorAll('.faq-group');
+  let total = 0;
+
+  // Reset cat filter
+  document.querySelectorAll('.cat-list a').forEach(a=>a.classList.remove('active'));
+  document.querySelector('.cat-list a[data-cat="all"]').classList.add('active');
+
+  if(!query){
+    items.forEach(i=>i.style.display='');
+    groups.forEach(g=>g.style.display='');
+    document.getElementById('noResults').style.display='none';
+    document.getElementById('faqMain').style.display='grid';
+    return;
+  }
+
+  items.forEach(item=>{
+    const text = (item.innerText + item.dataset.keywords).toLowerCase();
+    const visible = text.includes(query);
+    item.style.display = visible ? '' : 'none';
+    if(visible) total++;
+  });
+
+  groups.forEach(g=>{
+    const visible = [...g.querySelectorAll('.acc-item')].some(i=>i.style.display!=='none');
+    g.style.display = visible ? '' : 'none';
+  });
+
+  if(total===0){
+    document.getElementById('noResults').style.display='block';
+    document.getElementById('faqMain').style.display='none';
+  } else {
+    document.getElementById('noResults').style.display='none';
+    document.getElementById('faqMain').style.display='grid';
+  }
+}
+
+/* ── SCROLL ANIMATIONS ── */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
